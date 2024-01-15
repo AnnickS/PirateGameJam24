@@ -1,9 +1,38 @@
-[gd_scene format=3 uid="uid://beod2h7jup0e"]
+[gd_scene load_steps=2 format=3 uid="uid://beod2h7jup0e"]
 
-[node name="OptionsMenu" type="Control"]
-layout_mode = 3
+[ext_resource type="Theme" uid="uid://drf4vlv8rrw6q" path="res://Assets/UI/DefaultMenu.tres" id="1_mb8mo"]
+
+[node name="OptionsMenu" type="PanelContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_mb8mo")
+
+[node name="Label" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="GridContainer" type="GridContainer" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 30
+columns = 3
+
+[node name="Button" type="Button" parent="GridContainer/GridContainer"]
+layout_mode = 2
+text = "<"
+
+[node name="Label" type="Label" parent="GridContainer/GridContainer"]
+layout_mode = 2
+text = "100%"
+
+[node name="Button2" type="Button" parent="GridContainer/GridContainer"]
+layout_mode = 2
+text = ">"
