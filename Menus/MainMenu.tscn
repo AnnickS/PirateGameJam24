@@ -50,28 +50,28 @@ text = "NECROMANCER
 RAMPAGE"
 horizontal_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="GridContainer"]
+[node name="MusicControls" type="GridContainer" parent="GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("1_m6rjf")
 
-[node name="btnNewCampaign" type="Button" parent="GridContainer/GridContainer"]
+[node name="btnNewCampaign" type="Button" parent="GridContainer/MusicControls"]
 layout_mode = 2
 theme = ExtResource("1_m6rjf")
 text = "Start New Campaign"
 
-[node name="btnContinueCampaign" type="Button" parent="GridContainer/GridContainer"]
+[node name="btnContinueCampaign" type="Button" parent="GridContainer/MusicControls"]
 layout_mode = 2
 theme = ExtResource("1_m6rjf")
 text = "Continue Campaign"
 
-[node name="btnOptions" type="Button" parent="GridContainer/GridContainer"]
+[node name="btnOptions" type="Button" parent="GridContainer/MusicControls"]
 layout_mode = 2
 theme = ExtResource("1_m6rjf")
 text = "Options"
 script = ExtResource("3_2wa3q")
 
-[node name="btnQuit" type="Button" parent="GridContainer/GridContainer"]
+[node name="btnQuit" type="Button" parent="GridContainer/MusicControls"]
 layout_mode = 2
 theme = ExtResource("1_m6rjf")
 text = "Quit"
