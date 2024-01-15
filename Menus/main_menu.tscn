@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://e1rxoafr1l1c"]
+
+[node name="MainMenu" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="btnNewCampaign" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "Start New Campaign"
+
+[node name="btnContinueCampaign" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "Continue Campaign"
+
+[node name="btnOptions" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="btnQuit" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "Quit"
