@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://e1rxoafr1l1c"]
+[gd_scene load_steps=2 format=3 uid="uid://e1rxoafr1l1c"]
+
+[ext_resource type="Theme" uid="uid://drf4vlv8rrw6q" path="res://Assets/UI/DefaultButton.tres" id="1_m6rjf"]
 
 [node name="MainMenu" type="PanelContainer"]
 anchors_preset = 15
@@ -14,16 +16,20 @@ size_flags_vertical = 4
 
 [node name="btnNewCampaign" type="Button" parent="GridContainer"]
 layout_mode = 2
+theme = ExtResource("1_m6rjf")
 text = "Start New Campaign"
 
 [node name="btnContinueCampaign" type="Button" parent="GridContainer"]
 layout_mode = 2
+theme = ExtResource("1_m6rjf")
 text = "Continue Campaign"
 
 [node name="btnOptions" type="Button" parent="GridContainer"]
 layout_mode = 2
+theme = ExtResource("1_m6rjf")
 text = "Options"
 
 [node name="btnQuit" type="Button" parent="GridContainer"]
 layout_mode = 2
+theme = ExtResource("1_m6rjf")
 text = "Quit"
