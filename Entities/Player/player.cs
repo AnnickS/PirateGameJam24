@@ -5,6 +5,12 @@ public partial class player : CharacterBody2D
 {
 	[Export]
 	public float Speed = 300.0f;
+	AnimatedSprite2D animatedSprite;
+	
+	public override void _Ready()
+	{
+		animatedSprite = GetNode<AnimatedSprite2D>("Animation");
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -30,5 +36,19 @@ public partial class player : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
+		UpdateAnimation(!direction.Equals(Vector2.Zero), direction.X < 0);
+	}
+	
+	private void UpdateAnimation(bool moving, bool left)
+	{
+		if(moving)
+		{
+			animatedSprite.FlipH = left;
+			animatedSprite.Play();
+		} else
+		{
+			animatedSprite.Pause();
+			//add idle animation
+		}
 	}
 }
