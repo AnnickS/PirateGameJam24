@@ -4,12 +4,12 @@ using System;
 public partial class player : CharacterBody2D
 {
 	[Export]
-	public const float Speed = 300.0f;
+	public float Speed = 300.0f;
 
 	public override void _PhysicsProcess(double delta)
 	{
 		// Get the input direction and handle the movement/deceleration.
-		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+		Vector2 direction = Input.GetVector("left", "right", "up", "down");
 		MoveCharacter(direction);
 	}
 	

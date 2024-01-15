@@ -5,3 +5,4 @@
 [node name="LevelScene" type="Node2D"]
 
 [node name="Entity" parent="." instance=ExtResource("1_kyca4")]
+position = Vector2(525, 280)
