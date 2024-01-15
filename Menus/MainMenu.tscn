@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://e1rxoafr1l1c"]
+[gd_scene load_steps=4 format=3 uid="uid://e1rxoafr1l1c"]
 
 [ext_resource type="Theme" uid="uid://drf4vlv8rrw6q" path="res://Assets/UI/DefaultMenu.tres" id="1_m6rjf"]
 [ext_resource type="FontFile" uid="uid://ptvsx51nsqhf" path="res://Assets/UI/RubikWetPaint-Regular.ttf" id="1_o4jjt"]
+[ext_resource type="Script" path="res://Menus/btnQuit.cs" id="3_cmwv6"]
 
 [node name="MainMenu" type="PanelContainer"]
 anchors_preset = 15
@@ -51,3 +52,4 @@ text = "Options"
 layout_mode = 2
 theme = ExtResource("1_m6rjf")
 text = "Quit"
+script = ExtResource("3_cmwv6")
