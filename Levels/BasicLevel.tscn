@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://w66x7pk44xjc"]
 
-[ext_resource type="PackedScene" uid="uid://bk75rbs4nh5ev" path="res://Entities/entityBase.tscn" id="1_kyca4"]
+[ext_resource type="PackedScene" uid="uid://bk75rbs4nh5ev" path="res://Entities/NPCs/entityBase.tscn" id="1_kyca4"]
 
 [node name="LevelScene" type="Node2D"]
 

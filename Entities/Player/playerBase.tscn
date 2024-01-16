@@ -1,46 +1,46 @@
-[gd_scene load_steps=15 format=3 uid="uid://bk75rbs4nh5ev"]
+[gd_scene load_steps=15 format=3 uid="uid://dqm65l1fvvnxc"]
 
-[ext_resource type="Script" path="res://Entities/Player/player.cs" id="1_4jbqt"]
-[ext_resource type="Texture2D" uid="uid://blgekmw4h0pq2" path="res://Assets/Sprites/spritesheet.jpg" id="1_8o3wb"]
+[ext_resource type="Script" path="res://Entities/Player/player.cs" id="1_dayrv"]
+[ext_resource type="Texture2D" uid="uid://blgekmw4h0pq2" path="res://Assets/Sprites/spritesheet.jpg" id="2_le52v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ode13"]
-atlas = ExtResource("1_8o3wb")
+atlas = ExtResource("2_le52v")
 region = Rect2(6, 0, 157, 170)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_inf4e"]
-atlas = ExtResource("1_8o3wb")
+atlas = ExtResource("2_le52v")
 region = Rect2(163, 0, 157, 170)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c3fe8"]
-atlas = ExtResource("1_8o3wb")
+atlas = ExtResource("2_le52v")
 region = Rect2(320, 0, 157, 170)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p03n1"]
-atlas = ExtResource("1_8o3wb")
+atlas = ExtResource("2_le52v")
 region = Rect2(477, 0, 157, 170)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vvu6b"]
-atlas = ExtResource("1_8o3wb")
+atlas = ExtResource("2_le52v")
 region = Rect2(634, 0, 157, 170)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xvv3t"]
-atlas = ExtResource("1_8o3wb")
+atlas = ExtResource("2_le52v")
 region = Rect2(6, 170, 157, 170)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0rseh"]
-atlas = ExtResource("1_8o3wb")
+atlas = ExtResource("2_le52v")
 region = Rect2(163, 170, 157, 170)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gble1"]
-atlas = ExtResource("1_8o3wb")
+atlas = ExtResource("2_le52v")
 region = Rect2(320, 170, 157, 170)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l517i"]
-atlas = ExtResource("1_8o3wb")
+atlas = ExtResource("2_le52v")
 region = Rect2(477, 170, 157, 170)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xmdev"]
-atlas = ExtResource("1_8o3wb")
+atlas = ExtResource("2_le52v")
 region = Rect2(634, 170, 157, 170)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vemq8"]
@@ -86,12 +86,12 @@ radius = 47.0
 height = 104.0
 
 [node name="Entity" type="CharacterBody2D"]
-script = ExtResource("1_4jbqt")
+script = ExtResource("1_dayrv")
 
 [node name="Animation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_vemq8")
 animation = &"walking"
-frame_progress = 0.670914
+frame_progress = 0.924538
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-11, 10)
