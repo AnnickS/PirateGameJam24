@@ -33,7 +33,7 @@ script = ExtResource("2_m2jji")
 layout_mode = 2
 text = "<"
 
-[node name="Label" type="Label" parent="GridContainer/MusicControls"]
+[node name="MusicVolume" type="Label" parent="GridContainer/MusicControls"]
 layout_mode = 2
 text = "100%"
 
