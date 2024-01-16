@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://e1rxoafr1l1c"]
+[gd_scene load_steps=7 format=3 uid="uid://e1rxoafr1l1c"]
 
 [ext_resource type="Theme" uid="uid://drf4vlv8rrw6q" path="res://Assets/UI/DefaultMenu.tres" id="1_m6rjf"]
 [ext_resource type="FontFile" uid="uid://ptvsx51nsqhf" path="res://Assets/UI/RubikWetPaint-Regular.ttf" id="1_o4jjt"]
 [ext_resource type="Script" path="res://Menus/btnOptions.cs" id="3_2wa3q"]
 [ext_resource type="Script" path="res://Menus/btnQuit.cs" id="3_cmwv6"]
-[ext_resource type="AudioStream" uid="uid://hk0i5cmfmgys" path="res://Assets/Music/main_menu_WIP1.mp3" id="6_4w5kr"]
+[ext_resource type="Script" path="res://Menus/NewCampaign.cs" id="3_mttqp"]
+[ext_resource type="AudioStream" uid="uid://cv1kkppw4ljhj" path="res://Assets/Music/main_menu_WIP1.mp3" id="6_4w5kr"]
 
 [node name="MainMenu" type="PanelContainer"]
 anchors_preset = 15
@@ -39,6 +40,7 @@ theme = ExtResource("1_m6rjf")
 layout_mode = 2
 theme = ExtResource("1_m6rjf")
 text = "Start New Campaign"
+script = ExtResource("3_mttqp")
 
 [node name="btnContinueCampaign" type="Button" parent="GridContainer/MusicControls"]
 layout_mode = 2
@@ -60,4 +62,3 @@ script = ExtResource("3_cmwv6")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_4w5kr")
 autoplay = true
-bus = &"MusicBus"

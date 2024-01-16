@@ -4,6 +4,8 @@ using System;
 public partial class player : CharacterBody2D
 {
 	[Export]
+	private float health;
+	[Export]
 	public float Speed = 300.0f;
 	AnimatedSprite2D animatedSprite;
 	
