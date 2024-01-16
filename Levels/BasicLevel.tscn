@@ -1,17 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://w66x7pk44xjc"]
+[gd_scene load_steps=3 format=3 uid="uid://w66x7pk44xjc"]
 
-[ext_resource type="PackedScene" uid="uid://bk75rbs4nh5ev" path="res://Entities/NPCs/entityBase.tscn" id="1_kyca4"]
+[ext_resource type="PackedScene" uid="uid://bk75rbs4nh5ev" path="res://Entities/NPCs/zombieBase.tscn" id="1_kyca4"]
+[ext_resource type="Script" path="res://Entities/Player/player.cs" id="2_xcpgw"]
 
 [node name="LevelScene" type="Node2D"]
 
 [node name="Entity" parent="." instance=ExtResource("1_kyca4")]
-position = Vector2(525, 280)
+script = ExtResource("2_xcpgw")
+Health = 0
+Speed = 300.0
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Entity"]
 remote_path = NodePath("../../Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(525, 280)
+visible = false
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 2.0
@@ -19,3 +22,6 @@ drag_horizontal_enabled = true
 drag_vertical_enabled = true
 drag_left_margin = 0.1
 drag_right_margin = 0.1
+
+[node name="Zombie" parent="." instance=ExtResource("1_kyca4")]
+position = Vector2(336, 169)

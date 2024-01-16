@@ -1,13 +1,22 @@
 using Godot;
 using System;
 
-public partial class player : CharacterBody2D
+public partial class zombieBase : CharacterBody2D
 {
 	[Export]
 	private int Health;
 	[Export]
 	public float Speed = 300.0f;
+	[Export]
+	private float Threshhold = 5f;
+	private Vector2 RalleyPoint = Vector2.Zero;
+	
 	AnimatedSprite2D animatedSprite;
+
+	public void SetThreshhold(float amount)
+	{
+		Threshhold = amount;
+	}
 	
 	public override void _Ready()
 	{
@@ -16,9 +25,18 @@ public partial class player : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		// Get the input direction and handle the movement/deceleration.
-		Vector2 direction = Input.GetVector("left", "right", "up", "down");
-		MoveCharacter(direction);
+		if(Input.IsActionJustReleased("secondary_button"))
+		{
+			RalleyPoint = GetGlobalMousePosition();
+		}
+
+		//The threshhold can increase based on the number of zombies so they don't continually wig out
+		if(!(Mathf.Abs(RalleyPoint.X-GlobalPosition.X) < Threshhold) ||
+		!(Mathf.Abs(RalleyPoint.Y-GlobalPosition.Y) < Threshhold))
+		{
+			Vector2 direction = RalleyPoint-GlobalPosition;
+			MoveCharacter(direction.Normalized());
+		}
 	}
 	
 	private void MoveCharacter(Vector2 direction)
