@@ -8,9 +8,12 @@ public partial class zombieBase : CharacterBody2D
 	[Export]
 	public float Speed = 300.0f;
 	[Export]
-	private float Threshhold = 5f;
+	private float Threshhold;
 	private Vector2 RalleyPoint = Vector2.Zero;
-	
+	private float duration = 0f;
+	private bool slowX = false;
+	private bool slowY = false;
+
 	AnimatedSprite2D animatedSprite;
 
 	public void SetThreshhold(float amount)
@@ -31,32 +34,22 @@ public partial class zombieBase : CharacterBody2D
 		}
 
 		//The threshhold can increase based on the number of zombies so they don't continually wig out
-		if(!(Mathf.Abs(RalleyPoint.X-GlobalPosition.X) < Threshhold) ||
-		!(Mathf.Abs(RalleyPoint.Y-GlobalPosition.Y) < Threshhold))
-		{
-			Vector2 direction = RalleyPoint-GlobalPosition;
-			MoveCharacter(direction.Normalized());
-		}
+		Vector2 direction = RalleyPoint-GlobalPosition;
+		MoveCharacter(direction.Length(), direction.Normalized(), delta);
 	}
 	
-	private void MoveCharacter(Vector2 direction)
+	private void MoveCharacter(float length, Vector2 direction, double delta)
 	{
 		Vector2 velocity = Velocity;
-		
-		if (direction != Vector2.Zero)
-		{
-			velocity.X = direction.X * Speed;
-			velocity.Y = direction.Y * Speed;
-		}
-		else
-		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
-		}
+
+		duration = length < Threshhold ? duration + (float)delta : 0f;
+
+		velocity.X = length < Threshhold ? Mathf.MoveToward(Velocity.X, 0, duration/0.02f) : direction.X * Speed;
+		velocity.Y = length < Threshhold ? Mathf.MoveToward(Velocity.Y, 0, duration/0.02f) : direction.Y * Speed;
 
 		Velocity = velocity;
 		MoveAndSlide();
-		UpdateAnimation(!direction.Equals(Vector2.Zero), direction.X < 0);
+		UpdateAnimation(!velocity.Equals(Vector2.Zero), direction.X < 0);
 	}
 	
 	private void UpdateAnimation(bool moving, bool left)
@@ -68,6 +61,9 @@ public partial class zombieBase : CharacterBody2D
 		} else
 		{
 			animatedSprite.Pause();
+			duration = 0.0f;
+			slowX = false;
+			slowY = false;
 			//add idle animation
 		}
 	}
