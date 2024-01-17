@@ -13,19 +13,16 @@ public partial class zombieBase : CharacterBody2D
 	private float duration = 0f;
 	private bool slowX = false;
 	private bool slowY = false;
+	
 	private Timer attackAnimationTimer;
 	private Timer attackCooldownTimer;
 	private bool IsWeaponOnCooldown = false;
-
 	private int weaponDamage = 10;
-
-	private bool forceMove = false;
-
 	private Adversary target;
 	private Area2D weaponRange;
+	AnimatedSprite2D weaponSprite;
 
 	AnimatedSprite2D animatedSprite;
-	AnimatedSprite2D weaponSprite;
 
 	public void SetThreshhold(float amount)
 	{
