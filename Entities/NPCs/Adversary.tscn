@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://k0opnubkx8m7"]
+
+[ext_resource type="Texture2D" uid="uid://rrhkg5xo5rfu" path="res://Assets/Sprites/sprite-02a_people.png" id="1_8a6o5"]
+[ext_resource type="Script" path="res://Entities/NPCs/Adversary.cs" id="1_n6pmd"]
+[ext_resource type="Texture2D" uid="uid://dlsdkuwvtp5cd" path="res://Assets/Sprites/sprite-02b_people.png" id="2_f372n"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rn66t"]
+radius = 8.0
+height = 48.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qw24l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8a6o5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_f372n")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[node name="Adversary" type="CharacterBody2D" groups=["Enemy"]]
+script = ExtResource("1_n6pmd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Enemy"]]
+shape = SubResource("CapsuleShape2D_rn66t")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 8)
+scale = Vector2(0.701, 0.65)
+sprite_frames = SubResource("SpriteFrames_qw24l")
