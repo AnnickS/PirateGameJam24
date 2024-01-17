@@ -1,25 +1,31 @@
-[gd_scene load_steps=5 format=3 uid="uid://bk75rbs4nh5ev"]
+[gd_scene load_steps=6 format=3 uid="uid://bk75rbs4nh5ev"]
 
 [ext_resource type="Script" path="res://Entities/NPCs/zombieBase.cs" id="1_844ly"]
-[ext_resource type="Texture2D" uid="uid://br568vs67kgal" path="res://Assets/Sprites/placeholderNecro.png" id="2_wq8lo"]
+[ext_resource type="Texture2D" uid="uid://sqa5yi85jk0" path="res://Assets/Sprites/sprite-03a_zombie.png" id="2_qmms7"]
+[ext_resource type="Texture2D" uid="uid://du1mslyjruoc6" path="res://Assets/Sprites/sprite-03b_zombie.png" id="3_k4fwy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vemq8"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_wq8lo")
+"texture": ExtResource("2_qmms7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_k4fwy")
 }],
 "loop": true,
 "name": &"walking",
-"speed": 6.0
+"speed": 4.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jcngn"]
-radius = 12.0
-height = 74.0
+radius = 15.0
+height = 48.0
 
 [node name="Zombie" type="CharacterBody2D"]
 script = ExtResource("1_844ly")
+Speed = 250.0
+Threshhold = 100.0
 
 [node name="Animation" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.65, 0.65)
@@ -27,5 +33,5 @@ sprite_frames = SubResource("SpriteFrames_vemq8")
 animation = &"walking"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2)
+position = Vector2(3, 6)
 shape = SubResource("CapsuleShape2D_jcngn")

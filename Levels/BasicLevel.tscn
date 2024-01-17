@@ -1,16 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://w66x7pk44xjc"]
 
+[ext_resource type="PackedScene" uid="uid://wrw5oln1byr7" path="res://Entities/Player/playerBase.tscn" id="1_4nx0y"]
 [ext_resource type="PackedScene" uid="uid://bk75rbs4nh5ev" path="res://Entities/NPCs/zombieBase.tscn" id="1_kyca4"]
-[ext_resource type="Script" path="res://Entities/Player/player.cs" id="2_xcpgw"]
 
 [node name="LevelScene" type="Node2D"]
 
-[node name="Entity" parent="." instance=ExtResource("1_kyca4")]
-script = ExtResource("2_xcpgw")
-Health = 0
-Speed = 300.0
+[node name="Player" parent="." instance=ExtResource("1_4nx0y")]
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Entity"]
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
