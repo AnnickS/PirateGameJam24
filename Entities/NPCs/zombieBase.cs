@@ -10,6 +10,7 @@ public partial class zombieBase : CharacterBody2D
 	[Export]
 	private float Threshhold;
 	private Vector2 RalleyPoint = Vector2.Zero;
+	private bool IsForceMove = false;
 	private float duration = 0f;
 	private bool slowX = false;
 	private bool slowY = false;
@@ -17,6 +18,7 @@ public partial class zombieBase : CharacterBody2D
 	private Timer attackAnimationTimer;
 	private Timer attackCooldownTimer;
 	private bool IsWeaponOnCooldown = false;
+	private bool IsAttackAnimationHappening  = false;
 	private int weaponDamage = 10;
 	private Adversary target;
 	private Area2D weaponRange;
@@ -37,9 +39,11 @@ public partial class zombieBase : CharacterBody2D
 
 	public override void _Input(InputEvent @event)
 	{
+		
 		if(@event.IsActionPressed("secondary_button"))
 		{
 			RalleyPoint = GetGlobalMousePosition();
+			IsForceMove = Input.IsActionPressed("force_move");
 		}
 	}
 
@@ -53,6 +57,14 @@ public partial class zombieBase : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if(IsAttackAnimationHappening) {
+			return;
+		}
+		
+		if(_HasValidTarget() && !IsForceMove){
+			return;
+		}
+		
 		//The threshhold can increase based on the number of zombies so they don't continually wig out
 		Vector2 direction = RalleyPoint-GlobalPosition;
 		MoveCharacter(direction.Length(), direction.Normalized(), delta);
@@ -83,6 +95,7 @@ public partial class zombieBase : CharacterBody2D
 		attackCooldownTimer = GetNode<Timer>("AttackCooldownTimer");
 		attackAnimationTimer.Timeout += () => {
 			weaponSprite.Visible = false;
+			IsAttackAnimationHappening = false;
 		};
 		attackCooldownTimer.Timeout += _EndAttack;
 	}
@@ -91,6 +104,7 @@ public partial class zombieBase : CharacterBody2D
 		target = body;
 		body.TakeDamage(weaponDamage);
 		weaponSprite.Visible = true;
+		IsAttackAnimationHappening = true;
 		
 		IsWeaponOnCooldown = true;
 
@@ -100,9 +114,13 @@ public partial class zombieBase : CharacterBody2D
 
 	private void _EndAttack() {
 		IsWeaponOnCooldown = false;
-		if(IsInstanceValid(target) && weaponRange.OverlapsBody(target)) {
+		if(_HasValidTarget()) {
 			_Attack(target);
 		}
+	}
+	
+	private bool _HasValidTarget() {
+		return IsInstanceValid(target) && weaponRange.OverlapsBody(target);
 	}
 	
 	private void UpdateAnimation(bool moving, bool left)
