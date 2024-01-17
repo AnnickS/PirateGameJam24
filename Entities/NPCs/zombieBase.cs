@@ -13,6 +13,14 @@ public partial class zombieBase : CharacterBody2D
 	private float duration = 0f;
 	private bool slowX = false;
 	private bool slowY = false;
+	
+	private Timer attackAnimationTimer;
+	private Timer attackCooldownTimer;
+	private bool IsWeaponOnCooldown = false;
+	private int weaponDamage = 10;
+	private Adversary target;
+	private Area2D weaponRange;
+	AnimatedSprite2D weaponSprite;
 
 	AnimatedSprite2D animatedSprite;
 
@@ -24,15 +32,27 @@ public partial class zombieBase : CharacterBody2D
 	public override void _Ready()
 	{
 		animatedSprite = GetNode<AnimatedSprite2D>("Animation");
+		_InitializeWeapon();
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		if(@event.IsActionPressed("secondary_button"))
+		{
+			RalleyPoint = GetGlobalMousePosition();
+		}
+	}
+
+	private void _OnBodyEnteringWeaponRange(Node2D body) {
+		if(!body.IsInGroup("Enemy") || IsWeaponOnCooldown) {
+			return;
+		}
+		
+		_Attack((Adversary)body);
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if(Input.IsActionJustReleased("secondary_button"))
-		{
-			RalleyPoint = GetGlobalMousePosition();
-		}
-
 		//The threshhold can increase based on the number of zombies so they don't continually wig out
 		Vector2 direction = RalleyPoint-GlobalPosition;
 		MoveCharacter(direction.Length(), direction.Normalized(), delta);
@@ -50,6 +70,39 @@ public partial class zombieBase : CharacterBody2D
 		Velocity = velocity;
 		MoveAndSlide();
 		UpdateAnimation(!velocity.Equals(Vector2.Zero), direction.X < 0);
+	}
+	
+	private void _InitializeWeapon() {
+		weaponSprite = GetNode<AnimatedSprite2D>("Weapon");
+		weaponSprite.Visible = false;
+		
+		weaponRange = GetNode<Area2D>("WeaponRange");
+		weaponRange.BodyEntered += _OnBodyEnteringWeaponRange;
+
+		attackAnimationTimer = GetNode<Timer>("AttackAnimationTimer");
+		attackCooldownTimer = GetNode<Timer>("AttackCooldownTimer");
+		attackAnimationTimer.Timeout += () => {
+			weaponSprite.Visible = false;
+		};
+		attackCooldownTimer.Timeout += _EndAttack;
+	}
+	
+	private void _Attack(Adversary body) {
+		target = body;
+		body.TakeDamage(weaponDamage);
+		weaponSprite.Visible = true;
+		
+		IsWeaponOnCooldown = true;
+
+		attackCooldownTimer.Start();
+		attackAnimationTimer.Start();
+	}
+
+	private void _EndAttack() {
+		IsWeaponOnCooldown = false;
+		if(IsInstanceValid(target) && weaponRange.OverlapsBody(target)) {
+			_Attack(target);
+		}
 	}
 	
 	private void UpdateAnimation(bool moving, bool left)
