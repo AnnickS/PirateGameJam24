@@ -7,7 +7,7 @@ public partial class SaveOptions : Button
 	public override void _Ready()
 	{
 		Action changeSceneToMainMenu = () => {
-			GetTree().ChangeSceneToFile("res://Menus/MainMenu.tscn");
+			GetNode("/root/OptionsMenu").QueueFree();
 		};
 		
 		this.Pressed += changeSceneToMainMenu;

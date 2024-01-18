@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhyd85nqtydqb"]
+
+[ext_resource type="Script" path="res://Menus/OptionsMenu/VolumeControl.cs/VolumeControl.cs" id="1_8rur2"]
+
+[node name="VolumeControl" type="GridContainer"]
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 30
+columns = 3
+script = ExtResource("1_8rur2")
+
+[node name="LowerMusicBtn" type="Button" parent="."]
+layout_mode = 2
+text = "<"
+
+[node name="Volume" type="Label" parent="."]
+layout_mode = 2
+text = "100%"
+
+[node name="RaiseMusicBtn" type="Button" parent="."]
+layout_mode = 2
+text = ">"
