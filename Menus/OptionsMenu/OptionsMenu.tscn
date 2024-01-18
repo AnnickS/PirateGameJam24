@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://beod2h7jup0e"]
 
 [ext_resource type="Theme" uid="uid://drf4vlv8rrw6q" path="res://Assets/UI/DefaultMenu.tres" id="1_owmyg"]
-[ext_resource type="Script" path="res://Menus/OptionsMenu/MusicControls.cs" id="2_elfdl"]
+[ext_resource type="PackedScene" uid="uid://bhyd85nqtydqb" path="res://Menus/OptionsMenu/VolumeControl.cs/VolumeControl.tscn" id="2_koajb"]
 [ext_resource type="Script" path="res://Menus/OptionsMenu/SaveOptions.cs" id="3_s0avq"]
 
 [node name="OptionsMenu" type="PanelContainer"]
@@ -22,24 +22,8 @@ layout_mode = 2
 text = "Music Volume"
 horizontal_alignment = 1
 
-[node name="MusicControls" type="GridContainer" parent="GridContainer"]
+[node name="MusicControls" parent="GridContainer" instance=ExtResource("2_koajb")]
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/h_separation = 30
-columns = 3
-script = ExtResource("2_elfdl")
-
-[node name="LowerMusicBtn" type="Button" parent="GridContainer/MusicControls"]
-layout_mode = 2
-text = "<"
-
-[node name="MusicVolume" type="Label" parent="GridContainer/MusicControls"]
-layout_mode = 2
-text = "100%"
-
-[node name="RaiseMusicBtn" type="Button" parent="GridContainer/MusicControls"]
-layout_mode = 2
-text = ">"
 
 [node name="SaveOptions" type="Button" parent="GridContainer"]
 layout_mode = 2

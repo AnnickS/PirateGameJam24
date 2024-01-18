@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class MusicControls : GridContainer
+public partial class VolumeControl : GridContainer
 {
 	private int _musicVolume = 0;
 	private int _musicBusIndex = 0;
