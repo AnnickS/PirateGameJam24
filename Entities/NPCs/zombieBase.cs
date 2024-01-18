@@ -100,7 +100,7 @@ public partial class ZombieBase : EntityBase
 	
 	private void _Attack(Adversary body) {
 		target = body;
-		body.TakeDamage(weaponDamage);
+		body.Damage(weaponDamage);
 		weaponSprite.Visible = true;
 		CurrentState = State.Idle;
 		
@@ -121,7 +121,7 @@ public partial class ZombieBase : EntityBase
 		return IsInstanceValid(target) && weaponRange.OverlapsBody(target);
 	}
 
-    public override void Damage()
+    public override void Damage(int damage)
     {
         throw new NotImplementedException();
     }

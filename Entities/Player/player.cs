@@ -32,7 +32,7 @@ public partial class Player : EntityBase
 		MoveAndSlide();
 	}
 
-    public override void Damage()
+    public override void Damage(int damage)
     {
         throw new NotImplementedException();
     }
