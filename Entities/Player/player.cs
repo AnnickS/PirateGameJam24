@@ -3,18 +3,15 @@ using System;
 
 public partial class Player : EntityBase
 {
-	public override void _PhysicsProcess(double delta)
-	{
-		// Get the input direction and handle the movement/deceleration.
-		Move();
-		UpdateAnimation();
-	}
-
-	protected override void Move()
+	    protected override void Initialize()
+    {
+		return;
+    }
+	
+	protected override void Move(double delta)
 	{
 		Vector2 direction = Input.GetVector("left", "right", "up", "down");
 
-		GD.Print("Velocity: ", direction);
 		Vector2 velocity = Velocity;
 		
 		if (direction != Vector2.Zero)
@@ -35,28 +32,8 @@ public partial class Player : EntityBase
 		MoveAndSlide();
 	}
 
-    protected override void Damage()
+    public override void Damage()
     {
         throw new NotImplementedException();
     }
-
-    protected override void UpdateAnimation()
-	{
-		switch(CurrentState)
-		{
-			case State.Moving:
-				AnimatedSprite.Play("walking");
-				AnimatedSprite.FlipH = !left;
-				break;
-			case State.Damage:
-				break;
-			case State.Idle:
-				//Add Idle Animation here
-				AnimatedSprite.Pause();
-				break;
-			default:
-				break;
-		}
-	}
-
 }

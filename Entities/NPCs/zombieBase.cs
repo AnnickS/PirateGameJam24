@@ -1,12 +1,9 @@
 using Godot;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public partial class zombieBase : CharacterBody2D
+public partial class ZombieBase : EntityBase
 {
-	[Export]
-	private int Health;
-	[Export]
-	public float Speed = 300.0f;
 	[Export]
 	private float Threshhold;
 	private Vector2 RalleyPoint = Vector2.Zero;
@@ -18,24 +15,20 @@ public partial class zombieBase : CharacterBody2D
 	private Timer attackAnimationTimer;
 	private Timer attackCooldownTimer;
 	private bool IsWeaponOnCooldown = false;
-	private bool IsAttackAnimationHappening  = false;
 	private int weaponDamage = 10;
 	private Adversary target;
 	private Area2D weaponRange;
 	AnimatedSprite2D weaponSprite;
-
-	AnimatedSprite2D animatedSprite;
 
 	public void SetThreshhold(float amount)
 	{
 		Threshhold = amount;
 	}
 	
-	public override void _Ready()
-	{
-		animatedSprite = GetNode<AnimatedSprite2D>("Animation");
-		_InitializeWeapon();
-	}
+    protected override void Initialize()
+    {
+        _InitializeWeapon();
+    }
 
 	public override void _Input(InputEvent @event)
 	{
@@ -54,34 +47,40 @@ public partial class zombieBase : CharacterBody2D
 		
 		_Attack((Adversary)body);
 	}
-
-	public override void _PhysicsProcess(double delta)
+	
+	protected override void Move(double delta)
 	{
-		if(IsAttackAnimationHappening) {
+		if(CurrentState.Equals(State.Attacking)) {
 			return;
 		}
 		
 		if(_HasValidTarget() && !IsForceMove){
 			return;
 		}
-		
-		//The threshhold can increase based on the number of zombies so they don't continually wig out
-		Vector2 direction = RalleyPoint-GlobalPosition;
-		MoveCharacter(direction.Length(), direction.Normalized(), delta);
-	}
-	
-	private void MoveCharacter(float length, Vector2 direction, double delta)
-	{
+
+		Vector2 direction = (RalleyPoint-GlobalPosition).Normalized();
+		float length = (RalleyPoint-GlobalPosition).Length();
 		Vector2 velocity = Velocity;
 
 		duration = length < Threshhold ? duration + (float)delta : 0f;
 
-		velocity.X = length < Threshhold ? Mathf.MoveToward(Velocity.X, 0, duration/0.02f) : direction.X * Speed;
-		velocity.Y = length < Threshhold ? Mathf.MoveToward(Velocity.Y, 0, duration/0.02f) : direction.Y * Speed;
+		velocity.X = length < Threshhold ? Mathf.MoveToward(Velocity.X, 0, duration/0.01f) : direction.X * Speed;
+		velocity.Y = length < Threshhold ? Mathf.MoveToward(Velocity.Y, 0, duration/0.01f) : direction.Y * Speed;
+		left = direction.X < 0;
 
 		Velocity = velocity;
 		MoveAndSlide();
-		UpdateAnimation(!velocity.Equals(Vector2.Zero), direction.X < 0);
+
+		if(Velocity.Equals(Vector2.Zero))
+		{
+			CurrentState = State.Idle;
+			duration = 0.0f;
+			slowX = false;
+			slowY = false;
+		} else
+		{
+			CurrentState = State.Moving;
+		}
 	}
 	
 	private void _InitializeWeapon() {
@@ -95,7 +94,6 @@ public partial class zombieBase : CharacterBody2D
 		attackCooldownTimer = GetNode<Timer>("AttackCooldownTimer");
 		attackAnimationTimer.Timeout += () => {
 			weaponSprite.Visible = false;
-			IsAttackAnimationHappening = false;
 		};
 		attackCooldownTimer.Timeout += _EndAttack;
 	}
@@ -104,7 +102,7 @@ public partial class zombieBase : CharacterBody2D
 		target = body;
 		body.TakeDamage(weaponDamage);
 		weaponSprite.Visible = true;
-		IsAttackAnimationHappening = true;
+		CurrentState = State.Idle;
 		
 		IsWeaponOnCooldown = true;
 
@@ -122,20 +120,9 @@ public partial class zombieBase : CharacterBody2D
 	private bool _HasValidTarget() {
 		return IsInstanceValid(target) && weaponRange.OverlapsBody(target);
 	}
-	
-	private void UpdateAnimation(bool moving, bool left)
-	{
-		if(moving)
-		{
-			animatedSprite.FlipH = !left;
-			animatedSprite.Play("walking");
-		} else
-		{
-			animatedSprite.Pause();
-			duration = 0.0f;
-			slowX = false;
-			slowY = false;
-			//add idle animation
-		}
-	}
+
+    public override void Damage()
+    {
+        throw new NotImplementedException();
+    }
 }
