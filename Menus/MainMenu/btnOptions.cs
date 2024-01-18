@@ -7,7 +7,7 @@ public partial class btnOptions : Button
 	public override void _Ready()
 	{
 		Action changeSceneToOptions = () => {
-			Node optionsScene = ResourceLoader.Load<PackedScene>("res://Menus/OptionsMenu.tscn").Instantiate();
+			Node optionsScene = ResourceLoader.Load<PackedScene>("res://Menus/OptionsMenu/OptionsMenu.tscn").Instantiate();
 			GetTree().Root.AddChild(optionsScene);
 		};
 		

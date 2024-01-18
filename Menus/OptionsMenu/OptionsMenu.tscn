@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://beod2h7jup0e"]
 
-[ext_resource type="Theme" uid="uid://drf4vlv8rrw6q" path="res://Assets/UI/DefaultMenu.tres" id="1_mb8mo"]
-[ext_resource type="Script" path="res://Menus/MusicControls.cs" id="2_m2jji"]
-[ext_resource type="Script" path="res://Menus/SaveOptions.cs" id="3_4bdpy"]
+[ext_resource type="Theme" uid="uid://drf4vlv8rrw6q" path="res://Assets/UI/DefaultMenu.tres" id="1_owmyg"]
+[ext_resource type="Script" path="res://Menus/OptionsMenu/MusicControls.cs" id="2_elfdl"]
+[ext_resource type="Script" path="res://Menus/OptionsMenu/SaveOptions.cs" id="3_s0avq"]
 
 [node name="OptionsMenu" type="PanelContainer"]
 anchors_preset = 15
@@ -15,7 +15,7 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme = ExtResource("1_mb8mo")
+theme = ExtResource("1_owmyg")
 
 [node name="Label" type="Label" parent="GridContainer"]
 layout_mode = 2
@@ -27,7 +27,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/h_separation = 30
 columns = 3
-script = ExtResource("2_m2jji")
+script = ExtResource("2_elfdl")
 
 [node name="LowerMusicBtn" type="Button" parent="GridContainer/MusicControls"]
 layout_mode = 2
@@ -44,4 +44,4 @@ text = ">"
 [node name="SaveOptions" type="Button" parent="GridContainer"]
 layout_mode = 2
 text = "Save And Return"
-script = ExtResource("3_4bdpy")
+script = ExtResource("3_s0avq")

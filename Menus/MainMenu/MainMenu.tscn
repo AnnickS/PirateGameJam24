@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://e1rxoafr1l1c"]
 
-[ext_resource type="Theme" uid="uid://drf4vlv8rrw6q" path="res://Assets/UI/DefaultMenu.tres" id="1_m6rjf"]
-[ext_resource type="FontFile" uid="uid://ptvsx51nsqhf" path="res://Assets/UI/RubikWetPaint-Regular.ttf" id="1_o4jjt"]
-[ext_resource type="Script" path="res://Menus/btnOptions.cs" id="3_2wa3q"]
-[ext_resource type="Script" path="res://Menus/btnQuit.cs" id="3_cmwv6"]
-[ext_resource type="Script" path="res://Menus/NewCampaign.cs" id="3_mttqp"]
-[ext_resource type="AudioStream" uid="uid://hk0i5cmfmgys" path="res://Assets/Music/main_menu_WIP1.mp3" id="6_4w5kr"]
+[ext_resource type="FontFile" uid="uid://ptvsx51nsqhf" path="res://Assets/UI/RubikWetPaint-Regular.ttf" id="1_jl7th"]
+[ext_resource type="Theme" uid="uid://drf4vlv8rrw6q" path="res://Assets/UI/DefaultMenu.tres" id="2_v13u3"]
+[ext_resource type="Script" path="res://Menus/MainMenu/NewCampaign.cs" id="3_awmlj"]
+[ext_resource type="Script" path="res://Menus/MainMenu/btnOptions.cs" id="4_uais2"]
+[ext_resource type="Script" path="res://Menus/MainMenu/btnQuit.cs" id="5_x7q5s"]
+[ext_resource type="AudioStream" uid="uid://hk0i5cmfmgys" path="res://Assets/Music/main_menu_WIP1.mp3" id="6_kaek5"]
 
 [node name="MainMenu" type="PanelContainer"]
 anchors_preset = 15
@@ -25,7 +25,7 @@ theme_override_constants/v_separation = 60
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("1_o4jjt")
+theme_override_fonts/font = ExtResource("1_jl7th")
 theme_override_font_sizes/font_size = 80
 text = "NECROMANCER
 RAMPAGE"
@@ -34,32 +34,32 @@ horizontal_alignment = 1
 [node name="MusicControls" type="GridContainer" parent="GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme = ExtResource("1_m6rjf")
+theme = ExtResource("2_v13u3")
 
 [node name="btnNewCampaign" type="Button" parent="GridContainer/MusicControls"]
 layout_mode = 2
-theme = ExtResource("1_m6rjf")
+theme = ExtResource("2_v13u3")
 text = "Start New Campaign"
-script = ExtResource("3_mttqp")
+script = ExtResource("3_awmlj")
 
 [node name="btnContinueCampaign" type="Button" parent="GridContainer/MusicControls"]
 layout_mode = 2
-theme = ExtResource("1_m6rjf")
+theme = ExtResource("2_v13u3")
 text = "Continue Campaign"
 
 [node name="btnOptions" type="Button" parent="GridContainer/MusicControls"]
 layout_mode = 2
-theme = ExtResource("1_m6rjf")
+theme = ExtResource("2_v13u3")
 text = "Options"
-script = ExtResource("3_2wa3q")
+script = ExtResource("4_uais2")
 
 [node name="btnQuit" type="Button" parent="GridContainer/MusicControls"]
 layout_mode = 2
-theme = ExtResource("1_m6rjf")
+theme = ExtResource("2_v13u3")
 text = "Quit"
-script = ExtResource("3_cmwv6")
+script = ExtResource("5_x7q5s")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_4w5kr")
+stream = ExtResource("6_kaek5")
 autoplay = true
 bus = &"MusicBus"
