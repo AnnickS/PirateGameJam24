@@ -25,7 +25,7 @@ public abstract partial class EntityBase : CharacterBody2D
 
 	protected abstract void Initialize();
 	protected abstract void Move(double delta);
-	public abstract void Damage();
+	public abstract void Damage(int damage);
 
 	public override void _Ready()
 	{
