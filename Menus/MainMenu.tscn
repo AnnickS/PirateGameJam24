@@ -62,3 +62,4 @@ script = ExtResource("3_cmwv6")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_4w5kr")
 autoplay = true
+bus = &"MusicBus"
