@@ -1,13 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://wku06ud764b"]
+[gd_scene load_steps=5 format=3 uid="uid://wku06ud764b"]
 
-[ext_resource type="PackedScene" path="res://Entities/Player/playerBase.tscn" id="1_4nx0y"]
+[ext_resource type="PackedScene" uid="uid://wrw5oln1byr7" path="res://Entities/Player/playerBase.tscn" id="1_4nx0y"]
 [ext_resource type="PackedScene" uid="uid://dqcatls0nnu6e" path="res://Entities/NPCs/zombieBase.tscn" id="1_kyca4"]
-[ext_resource type="PackedScene" uid="uid://k0opnubkx8m7" path="res://Entities/NPCs/Adversary.tscn" id="3_swrjp"]
+[ext_resource type="Script" path="res://Entities/NPCs/zombieBase.cs" id="3_g3i6g"]
+[ext_resource type="PackedScene" path="res://Entities/NPCs/Adversary.tscn" id="3_swrjp"]
 
 [node name="LevelScene" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_4nx0y")]
-Health = 0
+Health = 150
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")
@@ -24,6 +25,8 @@ drag_right_margin = 0.1
 
 [node name="Zombie" parent="." instance=ExtResource("1_kyca4")]
 position = Vector2(312, 160)
+script = ExtResource("3_g3i6g")
+Threshhold = 0.0
 
 [node name="Adversary" parent="." instance=ExtResource("3_swrjp")]
 position = Vector2(-232, -56)

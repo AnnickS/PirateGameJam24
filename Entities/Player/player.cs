@@ -1,56 +1,62 @@
 using Godot;
 using System;
 
-public partial class player : CharacterBody2D
+public partial class Player : EntityBase
 {
-	[Export]
-	private int Health;
-	[Export]
-	public float Speed = 300.0f;
-	AnimatedSprite2D animatedSprite;
-	
-	public override void _Ready()
-	{
-		animatedSprite = GetNode<AnimatedSprite2D>("Animation");
-	}
-
 	public override void _PhysicsProcess(double delta)
 	{
 		// Get the input direction and handle the movement/deceleration.
-		Vector2 direction = Input.GetVector("left", "right", "up", "down");
-		MoveCharacter(direction);
+		Move();
+		UpdateAnimation();
 	}
-	
-	private void MoveCharacter(Vector2 direction)
+
+	protected override void Move()
 	{
+		Vector2 direction = Input.GetVector("left", "right", "up", "down");
+
+		GD.Print("Velocity: ", direction);
 		Vector2 velocity = Velocity;
 		
 		if (direction != Vector2.Zero)
 		{
 			velocity.X = direction.X * Speed;
 			velocity.Y = direction.Y * Speed;
+			CurrentState = State.Moving;
+			left = direction.X < 0;
 		}
 		else
 		{
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
+			CurrentState = State.Idle;
 		}
 
 		Velocity = velocity;
 		MoveAndSlide();
-		UpdateAnimation(!direction.Equals(Vector2.Zero), direction.X < 0);
 	}
-	
-	private void UpdateAnimation(bool moving, bool left)
+
+    protected override void Damage()
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void UpdateAnimation()
 	{
-		if(moving)
+		switch(CurrentState)
 		{
-			animatedSprite.FlipH = !left;
-			animatedSprite.Play("walking");
-		} else
-		{
-			animatedSprite.Pause();
-			//add idle animation
+			case State.Moving:
+				AnimatedSprite.Play("walking");
+				AnimatedSprite.FlipH = !left;
+				break;
+			case State.Damage:
+				break;
+			case State.Idle:
+				//Add Idle Animation here
+				AnimatedSprite.Pause();
+				break;
+			default:
+				break;
 		}
 	}
+
 }
