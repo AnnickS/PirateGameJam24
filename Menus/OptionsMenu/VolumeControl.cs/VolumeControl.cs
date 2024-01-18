@@ -16,9 +16,7 @@ public partial class VolumeControl : GridContainer
 	}
 	
 	private void _InitializeMusicControls() {
-		GD.Print(BusToControl);
 		this._musicBusIndex = AudioServer.GetBusIndex(BusToControl);
-		GD.Print(this._musicBusIndex);
 		float currentVolume = Mathf.DbToLinear(AudioServer.GetBusVolumeDb(this._musicBusIndex));
 		this._musicVolume = (int)Math.Round(100f * currentVolume, 2);
 		this._SetMusicLevel(this._musicVolume);
