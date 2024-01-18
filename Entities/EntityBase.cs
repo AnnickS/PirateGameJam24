@@ -1,31 +1,57 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
-public enum State
-	{
-		Moving,
-		Attacking,
-		Casting,
-		Damage,
-		Death,
-		Idle
-	}
+public enum Stat
+{
+	MaxHealth,
+	CurrentHealth,
+	MaxMana,
+	CurrentMana,
+	Defense,
+	Attack,
+	Shield,
+	Speed
+}
+
+public enum AnimationState
+{
+	Moving,
+	Attacking,
+	Casting,
+	Damage,
+	Death,
+	Idle
+}
 
 public abstract partial class EntityBase : CharacterBody2D
 {
+	//Defined here just so I remember how to define dictionarys inline
+	protected Dictionary<Stat, int> BaseStats = new Dictionary<Stat, int>()
+	{
+		{ Stat.MaxHealth, 300 },
+		{ Stat.Defense, 20 },
+		{ Stat.Shield, 150 },
+		{ Stat.Speed, 300 }
+	};
+	protected Dictionary<Stat, int> ModifierStats = new Dictionary<Stat, int>();
+
 	[Export]
-	protected int Shield;
-	[Export]
-	protected int Health;
-	[Export]
-	protected float Speed = 300.0f;
+	public int Shield;
+
+
 	protected AnimatedSprite2D AnimatedSprite;
-	protected State CurrentState;
+	protected AnimationState CurrentState;
 	protected bool left;
 
 	protected abstract void Initialize();
 	protected abstract void Move(double delta);
 	public abstract void Damage(int damage);
+
+	//Apply Effect could be implemented here since every creature will
+	//have the same stats to effect
+	public abstract void ApplyEffect(Effect effect);
+	protected abstract void Die();
 
 	public override void _Ready()
 	{
@@ -43,30 +69,6 @@ public abstract partial class EntityBase : CharacterBody2D
 	protected void UpdateAnimation()
 	{
 		AnimatedSprite.FlipH = !left;
-
-		switch(CurrentState)
-		{
-			case State.Moving:
-				AnimatedSprite.Play("walking");
-				break;
-			case State.Attacking:
-				//Add attacking animation
-				break;
-			case State.Casting:
-				//Add casting animation
-				break;
-			case State.Damage:
-				//Add damage animation
-				break;
-			case State.Death:
-				//Add death animation
-				break;
-			case State.Idle:
-				//Add Idle Animation here
-				AnimatedSprite.Pause();
-				break;
-			default:
-				break;
-		}
+		AnimatedSprite.Play(CurrentState.ToString());
 	}
 }

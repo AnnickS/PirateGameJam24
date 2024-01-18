@@ -50,7 +50,7 @@ public partial class ZombieBase : EntityBase
 	
 	protected override void Move(double delta)
 	{
-		if(CurrentState.Equals(State.Attacking)) {
+		if(CurrentState.Equals(AnimationState.Attacking)) {
 			return;
 		}
 		
@@ -64,8 +64,8 @@ public partial class ZombieBase : EntityBase
 
 		duration = length < Threshhold ? duration + (float)delta : 0f;
 
-		velocity.X = length < Threshhold ? Mathf.MoveToward(Velocity.X, 0, duration/0.01f) : direction.X * Speed;
-		velocity.Y = length < Threshhold ? Mathf.MoveToward(Velocity.Y, 0, duration/0.01f) : direction.Y * Speed;
+		velocity.X = length < Threshhold ? Mathf.MoveToward(Velocity.X, 0, duration/0.01f) : direction.X * BaseStats[Stat.Speed];
+		velocity.Y = length < Threshhold ? Mathf.MoveToward(Velocity.Y, 0, duration/0.01f) : direction.Y * BaseStats[Stat.Speed];
 		left = direction.X < 0;
 
 		Velocity = velocity;
@@ -73,13 +73,13 @@ public partial class ZombieBase : EntityBase
 
 		if(Velocity.Equals(Vector2.Zero))
 		{
-			CurrentState = State.Idle;
+			CurrentState = AnimationState.Idle;
 			duration = 0.0f;
 			slowX = false;
 			slowY = false;
 		} else
 		{
-			CurrentState = State.Moving;
+			CurrentState = AnimationState.Moving;
 		}
 	}
 	
@@ -89,7 +89,7 @@ public partial class ZombieBase : EntityBase
 		
 		weaponRange = GetNode<Area2D>("WeaponRange");
 		weaponRange.BodyEntered += _OnBodyEnteringWeaponRange;
-
+ 
 		attackAnimationTimer = GetNode<Timer>("AttackAnimationTimer");
 		attackCooldownTimer = GetNode<Timer>("AttackCooldownTimer");
 		attackAnimationTimer.Timeout += () => {
@@ -102,7 +102,7 @@ public partial class ZombieBase : EntityBase
 		target = body;
 		body.Damage(weaponDamage);
 		weaponSprite.Visible = true;
-		CurrentState = State.Idle;
+		CurrentState = AnimationState.Idle;
 		
 		IsWeaponOnCooldown = true;
 
@@ -122,6 +122,16 @@ public partial class ZombieBase : EntityBase
 	}
 
     public override void Damage(int damage)
+    {
+        throw new NotImplementedException();
+    }
+
+	public override void ApplyEffect(Effect effect)
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void Die()
     {
         throw new NotImplementedException();
     }

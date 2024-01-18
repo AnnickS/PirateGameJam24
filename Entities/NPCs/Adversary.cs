@@ -12,21 +12,26 @@ public partial class Adversary : EntityBase
 	{
 	}
 	
-	public override void Damage(int damage)
-    {
-        Health -= damage;
-		
-		if(Health <= 0) {
-			Die();
-		}
-    }
-	
-	private void Die() {
-		QueueFree();
-	}
-
     protected override void Move(double delta)
     {
         throw new NotImplementedException();
     }
+
+	public override void Damage(int damage)
+    {
+		BaseStats[Stat.CurrentHealth] -= damage;
+		
+		if(BaseStats[Stat.CurrentHealth] <= 0) {
+			Die();
+		}
+    }
+
+	public override void ApplyEffect(Effect effect)
+    {
+        throw new NotImplementedException();
+    }
+	
+	protected override void Die() {
+		QueueFree();
+	}
 }
