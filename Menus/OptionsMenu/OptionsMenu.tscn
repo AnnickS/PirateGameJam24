@@ -17,13 +17,22 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("1_owmyg")
 
-[node name="Label" type="Label" parent="GridContainer"]
+[node name="MasterLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Master"
+horizontal_alignment = 1
+
+[node name="MasterVolume" parent="GridContainer" instance=ExtResource("2_koajb")]
+layout_mode = 2
+
+[node name="MusicLabel" type="Label" parent="GridContainer"]
 layout_mode = 2
 text = "Music Volume"
 horizontal_alignment = 1
 
 [node name="MusicControls" parent="GridContainer" instance=ExtResource("2_koajb")]
 layout_mode = 2
+BusToControl = "Music"
 
 [node name="SaveOptions" type="Button" parent="GridContainer"]
 layout_mode = 2

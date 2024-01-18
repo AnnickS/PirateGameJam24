@@ -31,29 +31,29 @@ text = "NECROMANCER
 RAMPAGE"
 horizontal_alignment = 1
 
-[node name="MusicControls" type="GridContainer" parent="GridContainer"]
+[node name="MainMenuButtons" type="GridContainer" parent="GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("2_v13u3")
 
-[node name="btnNewCampaign" type="Button" parent="GridContainer/MusicControls"]
+[node name="btnNewCampaign" type="Button" parent="GridContainer/MainMenuButtons"]
 layout_mode = 2
 theme = ExtResource("2_v13u3")
 text = "Start New Campaign"
 script = ExtResource("3_awmlj")
 
-[node name="btnContinueCampaign" type="Button" parent="GridContainer/MusicControls"]
+[node name="btnContinueCampaign" type="Button" parent="GridContainer/MainMenuButtons"]
 layout_mode = 2
 theme = ExtResource("2_v13u3")
 text = "Continue Campaign"
 
-[node name="btnOptions" type="Button" parent="GridContainer/MusicControls"]
+[node name="btnOptions" type="Button" parent="GridContainer/MainMenuButtons"]
 layout_mode = 2
 theme = ExtResource("2_v13u3")
 text = "Options"
 script = ExtResource("4_uais2")
 
-[node name="btnQuit" type="Button" parent="GridContainer/MusicControls"]
+[node name="btnQuit" type="Button" parent="GridContainer/MainMenuButtons"]
 layout_mode = 2
 theme = ExtResource("2_v13u3")
 text = "Quit"
@@ -62,4 +62,4 @@ script = ExtResource("5_x7q5s")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_kaek5")
 autoplay = true
-bus = &"MusicBus"
+bus = &"Music"

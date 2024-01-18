@@ -3,6 +3,8 @@ using System;
 
 public partial class VolumeControl : GridContainer
 {
+	[Export]
+	public string BusToControl = "Master";
 	private int _musicVolume = 0;
 	private int _musicBusIndex = 0;
 	
@@ -14,7 +16,9 @@ public partial class VolumeControl : GridContainer
 	}
 	
 	private void _InitializeMusicControls() {
-		this._musicBusIndex = AudioServer.GetBusIndex("MusicBus");
+		GD.Print(BusToControl);
+		this._musicBusIndex = AudioServer.GetBusIndex(BusToControl);
+		GD.Print(this._musicBusIndex);
 		float currentVolume = Mathf.DbToLinear(AudioServer.GetBusVolumeDb(this._musicBusIndex));
 		this._musicVolume = (int)Math.Round(100f * currentVolume, 2);
 		this._SetMusicLevel(this._musicVolume);
@@ -25,7 +29,7 @@ public partial class VolumeControl : GridContainer
 			float linearVolume = (float)newMusicLevel / (float)100;
 			AudioServer.SetBusVolumeDb(this._musicBusIndex, Mathf.LinearToDb(linearVolume));
 			
-			Label musicVolumeLbl = GetNode<Label>("MusicVolume");
+			Label musicVolumeLbl = GetNode<Label>("Volume");
 			musicVolumeLbl.Text = newMusicLevel.ToString() + "%";
 	}
 	
