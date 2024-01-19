@@ -36,7 +36,7 @@ horizontal_alignment = 1
 
 [node name="MusicControls" parent="GridContainer" instance=ExtResource("2_koajb")]
 layout_mode = 2
-BusToControl = "Music"
+BusToControl = 0
 
 [node name="SaveOptions" type="Button" parent="GridContainer"]
 layout_mode = 2

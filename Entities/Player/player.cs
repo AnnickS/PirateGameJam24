@@ -7,9 +7,9 @@ public partial class Player : EntityBase
 	private List<Spell> AbilityList;
 
 	protected override void Initialize()
-    {
+	{
 		return;
-    }
+	}
 	
 	protected override void Move(double delta)
 	{
@@ -35,18 +35,18 @@ public partial class Player : EntityBase
 		MoveAndSlide();
 	}
 
-    public override void Damage(int damage)
-    {
-        throw new NotImplementedException();
-    }
+	public override void Damage(int damage)
+	{
+		throw new NotImplementedException();
+	}
 
 	public override void ApplyEffect(Effect effect)
-    {
-        throw new NotImplementedException();
-    }
+	{
+		throw new NotImplementedException();
+	}
 
-    protected override void Die()
-    {
-        throw new NotImplementedException();
-    }
+	protected override void Die()
+	{
+		throw new NotImplementedException();
+	}
 }

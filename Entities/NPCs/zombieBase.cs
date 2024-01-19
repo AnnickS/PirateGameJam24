@@ -25,10 +25,10 @@ public partial class ZombieBase : EntityBase
 		Threshhold = amount;
 	}
 	
-    protected override void Initialize()
-    {
-        _InitializeWeapon();
-    }
+	protected override void Initialize()
+	{
+		_InitializeWeapon();
+	}
 
 	public override void _Input(InputEvent @event)
 	{
@@ -121,18 +121,18 @@ public partial class ZombieBase : EntityBase
 		return IsInstanceValid(target) && weaponRange.OverlapsBody(target);
 	}
 
-    public override void Damage(int damage)
-    {
-        throw new NotImplementedException();
-    }
+	public override void Damage(int damage)
+	{
+		throw new NotImplementedException();
+	}
 
 	public override void ApplyEffect(Effect effect)
-    {
-        throw new NotImplementedException();
-    }
+	{
+		throw new NotImplementedException();
+	}
 
-    protected override void Die()
-    {
-        throw new NotImplementedException();
-    }
+	protected override void Die()
+	{
+		throw new NotImplementedException();
+	}
 }

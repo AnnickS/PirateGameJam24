@@ -8,6 +8,7 @@ public partial class SaveOptions : Button
 	{
 		Action changeSceneToMainMenu = () => {
 			GetNode("/root/OptionsMenu").QueueFree();
+			Utilities.Save();
 		};
 		
 		this.Pressed += changeSceneToMainMenu;

@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://wku06ud764b"]
 
-[ext_resource type="PackedScene" uid="uid://wrw5oln1byr7" path="res://Entities/Player/playerBase.tscn" id="1_4nx0y"]
-[ext_resource type="PackedScene" uid="uid://dqcatls0nnu6e" path="res://Entities/NPCs/zombieBase.tscn" id="1_kyca4"]
+[ext_resource type="PackedScene" uid="uid://wrw5oln1byr7" path="res://Entities/Player/PlayerBase.tscn" id="1_4nx0y"]
+[ext_resource type="PackedScene" uid="uid://dqcatls0nnu6e" path="res://Entities/NPCs/ZombieBase.tscn" id="1_kyca4"]
 [ext_resource type="Script" path="res://Entities/NPCs/ZombieBase.cs" id="3_g3i6g"]
-[ext_resource type="PackedScene" path="res://Entities/NPCs/Adversary.tscn" id="3_swrjp"]
+[ext_resource type="PackedScene" uid="uid://k0opnubkx8m7" path="res://Entities/NPCs/Adversary.tscn" id="3_swrjp"]
 
 [node name="LevelScene" type="Node2D"]
 
