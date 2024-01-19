@@ -64,7 +64,7 @@ public partial class Utilities:Node {
 	
 	private static void FirstTimeCreateSaveFile() {
 		SaveFileData = new Godot.Collections.Dictionary<string, Variant>();
-		UpdateValueForSave(SaveValueKeys.Master, 50);
+		UpdateValueForSave(SaveValueKeys.Master, 70);
 		UpdateValueForSave(SaveValueKeys.Music, 100);
 		
 		Save();

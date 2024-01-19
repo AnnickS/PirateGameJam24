@@ -4,7 +4,7 @@ using System;
 public partial class VolumeControl : GridContainer
 {
 	[Export]
-	public string BusToControl = "Master";
+	public SaveValueKeys BusToControl = SaveValueKeys.Master;
 	private int _musicVolume = 0;
 	private int _musicBusIndex = 0;
 	
@@ -16,7 +16,7 @@ public partial class VolumeControl : GridContainer
 	}
 	
 	private void _InitializeMusicControls() {
-		this._musicBusIndex = AudioServer.GetBusIndex(BusToControl);
+		this._musicBusIndex = AudioServer.GetBusIndex(BusToControl.ToString());
 		float currentVolume = Mathf.DbToLinear(AudioServer.GetBusVolumeDb(this._musicBusIndex));
 		this._musicVolume = (int)Math.Round(100f * currentVolume, 2);
 		this._SetMusicLevel(this._musicVolume);
@@ -27,7 +27,8 @@ public partial class VolumeControl : GridContainer
 		Label musicVolumeLbl = GetNode<Label>("Volume");
 		musicVolumeLbl.Text = newMusicLevel.ToString() + "%";
 
-		Utilities.SetBusVolume(newMusicLevel, BusToControl);
+		Utilities.SetBusVolume(newMusicLevel, BusToControl.ToString());
+		Utilities.UpdateValueForSave(BusToControl, newMusicLevel);
 	}
 	
 	private void _AddVolumeAdjustHandlers() {
