@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using static Utility;
 
 public partial class VolumeControl : GridContainer
 {
@@ -28,7 +27,7 @@ public partial class VolumeControl : GridContainer
 		Label musicVolumeLbl = GetNode<Label>("Volume");
 		musicVolumeLbl.Text = newMusicLevel.ToString() + "%";
 
-		SetBusVolume(newMusicLevel, BusToControl);
+		Utilities.SetBusVolume(newMusicLevel, BusToControl);
 	}
 	
 	private void _AddVolumeAdjustHandlers() {
