@@ -71,12 +71,9 @@ public partial class Utilities:Node {
 	}
 }
 
-// DON'T CHANGE ORDER OF MASTER VOLUME - SOUNDEFFECTVOLUME!!!
-// Need the numbers to be the same as their index in the audio bus thing....
-// Need a better way to do this but C# doesn't do string enums or unions :(
 public enum SaveValueKeys {
-	Master,
 	Music,
+	Master,
 }
 
 
