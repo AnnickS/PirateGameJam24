@@ -13,12 +13,20 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_8a6o5")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8a6o5")
 }, {
 "duration": 1.0,
 "texture": ExtResource("2_f372n")
 }],
 "loop": true,
-"name": &"default",
+"name": &"Moving",
 "speed": 4.0
 }]
 
@@ -28,7 +36,8 @@ script = ExtResource("1_n6pmd")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Enemy"]]
 shape = SubResource("CapsuleShape2D_rn66t")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Animation" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 8)
 scale = Vector2(0.701, 0.65)
 sprite_frames = SubResource("SpriteFrames_qw24l")
+animation = &"Idle"

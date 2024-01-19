@@ -1,11 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://wrw5oln1byr7"]
+[gd_scene load_steps=7 format=3 uid="uid://wrw5oln1byr7"]
 
 [ext_resource type="Script" path="res://Entities/Player/Player.cs" id="1_dayrv"]
+[ext_resource type="Texture2D" uid="uid://br568vs67kgal" path="res://Assets/Sprites/placeholderNecro.png" id="2_bb15k"]
 [ext_resource type="Texture2D" uid="uid://tbbkrqsfhg4n" path="res://Assets/Sprites/sprite-01a_Lichy.png" id="2_q113j"]
 [ext_resource type="Texture2D" uid="uid://dw1obhnil2vke" path="res://Assets/Sprites/sprite-01b_Lichy.png" id="3_cn7ey"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vemq8"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_bb15k")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_q113j")
@@ -14,7 +23,7 @@ animations = [{
 "texture": ExtResource("3_cn7ey")
 }],
 "loop": true,
-"name": &"walking",
+"name": &"Moving",
 "speed": 6.0
 }]
 
@@ -24,12 +33,11 @@ height = 74.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_dayrv")
-Health = 75
 
 [node name="Animation" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.65, 0.65)
 sprite_frames = SubResource("SpriteFrames_vemq8")
-animation = &"walking"
+animation = &"Moving"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)

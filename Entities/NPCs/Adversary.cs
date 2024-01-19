@@ -5,7 +5,7 @@ public partial class Adversary : EntityBase
 {
 	protected override void Initialize()
 	{
-		throw new NotImplementedException();
+		GD.Print("ERROR, INITIALZIZE NOT SET YET FOR ADVERSARY");
 	}
 
 	public override void _PhysicsProcess(double delta)

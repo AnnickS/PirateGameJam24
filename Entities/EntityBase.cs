@@ -29,6 +29,7 @@ public abstract partial class EntityBase : CharacterBody2D
 	//Defined here just so I remember how to define dictionarys inline
 	protected Dictionary<Stat, int> BaseStats = new Dictionary<Stat, int>()
 	{
+		{ Stat.CurrentHealth, 100 },
 		{ Stat.MaxHealth, 300 },
 		{ Stat.Defense, 20 },
 		{ Stat.Shield, 150 },

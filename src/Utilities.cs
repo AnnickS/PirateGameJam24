@@ -33,31 +33,25 @@ public partial class Utilities:Node {
 	}
 	
 	private static void Load() {
-		GD.Print("in load 1");
 		using var saveFile = FileAccess.Open(SaveFilePath, FileAccess.ModeFlags.Read);
-		GD.Print("in load 1.5");
-		GD.Print(saveFile);
+		
 		if(saveFile == null) {
 			FirstTimeCreateSaveFile();
 			return;
 		}
-		var saveFileJsonString = saveFile.GetLine();
-		GD.Print("in load 1.6");
-		var jsonObject = new Json();
 		
-		GD.Print("in load2");
+		var saveFileJsonString = saveFile.GetLine();
+		var jsonObject = new Json();
 		var parseResult = jsonObject.Parse(saveFileJsonString);
 		
 		if(parseResult != Error.Ok) {
 			GD.Print($"Load Game JSON Parse Error: {jsonObject.GetErrorMessage()} in {saveFileJsonString} at line {jsonObject.GetErrorLine()}");
 		}
 		
-		GD.Print("in load3");
 		SaveFileData = new Godot.Collections.Dictionary<string, Variant>((Godot.Collections.Dictionary)jsonObject.Data);
 	}
 	
 	private static void SetPreferences() {
-		GD.Print($"master volume {SaveValueKeys.Master.ToString()}, {GetSaveValue(SaveValueKeys.Master)}");
 		SetBusVolume((int)GetSaveValue(SaveValueKeys.Master), SaveValueKeys.Master.ToString());
 		SetBusVolume((int)GetSaveValue(SaveValueKeys.Music), SaveValueKeys.Music.ToString());
 	}
