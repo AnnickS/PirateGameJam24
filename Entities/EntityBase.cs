@@ -47,7 +47,7 @@ public abstract partial class EntityBase : CharacterBody2D
 
 	protected abstract void Initialize();
 	protected abstract Vector2 GetNormalizedMovementDirection();
-	protected int GetMovementSpeed() {
+	protected virtual int GetMovementSpeed() {
 		return BaseStats[Stat.Speed];
 	}
 
@@ -88,18 +88,22 @@ public abstract partial class EntityBase : CharacterBody2D
 			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, deceleration);
 		}
 		
-		CurrentState = velocity == Vector2.Zero ? AnimationState.Idle : AnimationState.Moving;
+		SetAnimationState(velocity, direction);
 
 		Velocity = velocity;
-		
+		MoveAndSlide();
+	}
+
+	private void SetAnimationState(Vector2 velocity, Vector2 direction) {
+		CurrentState = velocity == Vector2.Zero ? AnimationState.Idle : AnimationState.Moving;
+
+		//not using velocity so if character is knocked back, they still face the same way
 		if(direction.X > 0.1) {
 			left = false;
 		}
 		else if(direction.X < -0.1) {
 			left = true;
 		}
-		
-		MoveAndSlide();
 	}
 
 	protected void UpdateAnimation()
