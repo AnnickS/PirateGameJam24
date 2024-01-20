@@ -53,7 +53,14 @@ public abstract partial class EntityBase : CharacterBody2D
 
 	protected int deceleration = 300;
 
-	public abstract void Damage(int damage);
+	public virtual void Damage(int damage)
+	{
+		BaseStats[Stat.CurrentHealth] -= damage;
+		
+		if(BaseStats[Stat.CurrentHealth] <= 0) {
+			Die();
+		}
+	}
 
 	//Apply Effect could be implemented here since every creature will
 	//have the same stats to effect
@@ -88,6 +95,7 @@ public abstract partial class EntityBase : CharacterBody2D
 			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, deceleration);
 		}
 		
+		//for future reference, this should probably be moved since it's not really a part of "moving"
 		SetAnimationState(velocity, direction);
 
 		Velocity = velocity;

@@ -17,15 +17,6 @@ public partial class Adversary : EntityBase
 		return Vector2.Zero;
 	}
 
-	public override void Damage(int damage)
-	{
-		BaseStats[Stat.CurrentHealth] -= damage;
-		
-		if(BaseStats[Stat.CurrentHealth] <= 0) {
-			Die();
-		}
-	}
-
 	public override void ApplyEffect(Effect effect)
 	{
 		throw new NotImplementedException();
