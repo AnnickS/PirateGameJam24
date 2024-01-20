@@ -8,9 +8,6 @@ public partial class ZombieBase : EntityBase
 	private float Threshhold;
 	private Vector2 RalleyPoint = Vector2.Zero;
 	private bool IsForceMove = false;
-	private float duration = 0f;
-	private bool slowX = false;
-	private bool slowY = false;
 	
 	private Timer attackAnimationTimer;
 	private Timer attackCooldownTimer;
@@ -47,7 +44,12 @@ public partial class ZombieBase : EntityBase
 		
 		_Attack((Adversary)body);
 	}
-	
+
+	protected override Vector2 GetNormalizedMovementDirection()
+	{
+		return Vector2.Zero;
+	}
+
 	protected override void Move(double delta)
 	{
 		if(CurrentState.Equals(AnimationState.Attacking)) {
@@ -62,10 +64,12 @@ public partial class ZombieBase : EntityBase
 		float length = (RalleyPoint-GlobalPosition).Length();
 		Vector2 velocity = Velocity;
 
-		duration = length < Threshhold ? duration + (float)delta : 0f;
+		if(length < Threshhold) {
+			GD.Print($"dur {duration} velX {Velocity.X} deceleration {duration / 0.01f} moveToward {Mathf.MoveToward(Velocity.X, 0, duration/0.01f)}");
+		}
 
-		velocity.X = length < Threshhold ? Mathf.MoveToward(Velocity.X, 0, duration/0.01f) : direction.X * BaseStats[Stat.Speed];
-		velocity.Y = length < Threshhold ? Mathf.MoveToward(Velocity.Y, 0, duration/0.01f) : direction.Y * BaseStats[Stat.Speed];
+		velocity.X = length < Threshhold ? Mathf.MoveToward(Velocity.X, 0, 15) : direction.X * BaseStats[Stat.Speed];
+		velocity.Y = length < Threshhold ? Mathf.MoveToward(Velocity.Y, 0, 15) : direction.Y * BaseStats[Stat.Speed];
 		left = direction.X < 0;
 
 		Velocity = velocity;
@@ -74,9 +78,6 @@ public partial class ZombieBase : EntityBase
 		if(Velocity.Equals(Vector2.Zero))
 		{
 			CurrentState = AnimationState.Idle;
-			duration = 0.0f;
-			slowX = false;
-			slowY = false;
 		} else
 		{
 			CurrentState = AnimationState.Moving;
