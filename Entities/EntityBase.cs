@@ -51,6 +51,8 @@ public abstract partial class EntityBase : CharacterBody2D
 		return BaseStats[Stat.Speed];
 	}
 
+	protected int deceleration = 300;
+
 	public abstract void Damage(int damage);
 
 	//Apply Effect could be implemented here since every creature will
@@ -67,11 +69,11 @@ public abstract partial class EntityBase : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		// Get the input direction and handle the movement/deceleration.
-		Move(delta);
+		Move();
 		UpdateAnimation();
 	}
 
-	protected virtual void Move(double delta) {
+	protected void Move() {
 		Vector2 direction = GetNormalizedMovementDirection();
 		Vector2 velocity = Velocity;
 		
@@ -82,13 +84,21 @@ public abstract partial class EntityBase : CharacterBody2D
 		}
 		else
 		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, BaseStats[Stat.Speed]);
-			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, BaseStats[Stat.Speed]);
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, deceleration);
+			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, deceleration);
 		}
 		
 		CurrentState = velocity == Vector2.Zero ? AnimationState.Idle : AnimationState.Moving;
 
 		Velocity = velocity;
+		
+		if(direction.X > 0.1) {
+			left = false;
+		}
+		else if(direction.X < -0.1) {
+			left = true;
+		}
+		
 		MoveAndSlide();
 	}
 
