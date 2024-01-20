@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://wku06ud764b"]
+[gd_scene load_steps=4 format=3 uid="uid://wku06ud764b"]
 
 [ext_resource type="PackedScene" uid="uid://wrw5oln1byr7" path="res://Entities/Player/PlayerBase.tscn" id="1_4nx0y"]
 [ext_resource type="PackedScene" uid="uid://dqcatls0nnu6e" path="res://Entities/NPCs/ZombieBase.tscn" id="1_kyca4"]
-[ext_resource type="PackedScene" uid="uid://k0opnubkx8m7" path="res://Entities/NPCs/Adversary.tscn" id="3_swrjp"]
-[ext_resource type="PackedScene" uid="uid://c33q4fbikjo24" path="res://Entities/NPCs/NPCPath/NpcPath.tscn" id="4_rt0tu"]
+[ext_resource type="PackedScene" uid="uid://bvy6mblvc4vs4" path="res://Entities/NPCs/SquadWithPath.tscn" id="3_bvanb"]
 
 [node name="LevelScene" type="Node2D"]
 
@@ -26,7 +25,5 @@ drag_right_margin = 0.1
 position = Vector2(312, 160)
 Threshhold = 50.0
 
-[node name="Adversary" parent="." instance=ExtResource("3_swrjp")]
-position = Vector2(-232, -56)
-
-[node name="NpcPath" parent="." instance=ExtResource("4_rt0tu")]
+[node name="SquadWithPath" parent="." instance=ExtResource("3_bvanb")]
+position = Vector2(-400, 88)

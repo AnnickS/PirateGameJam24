@@ -3,9 +3,10 @@ using System;
 
 public partial class NpcPath : Node2D
 {
-	public PathNode StartNode;
+	public PathNode StartNode  = ResourceLoader.Load<PackedScene>("res://Entities/NPCs/NPCPath/PathNode.tscn").Instantiate() as PathNode;
 
-	private int Size = 500;
+	[Export]
+	public int Size = 300;
 
 	private static RandomNumberGenerator randomGenerator = new RandomNumberGenerator();
 
@@ -39,7 +40,6 @@ public partial class NpcPath : Node2D
 	
 	//positions should include positions for every point EXCEPT STARTING NODE which will always be at 0,0.
 	private void CreatePathWithPositions(Vector2[] positions) {
-		StartNode = ResourceLoader.Load<PackedScene>("res://Entities/NPCs/NPCPath/PathNode.tscn").Instantiate() as PathNode;
 		AddChild(StartNode);
 
 		PathNode currentNode = StartNode;

@@ -3,22 +3,19 @@ using System;
 
 public partial class Adversary : EntityBase
 {
-	private PathNode NextPathNode;
+	public PathNode NextPathNode;
 
 	protected override void Initialize()
 	{
-		NextPathNode = (GetTree().GetFirstNodeInGroup("Squad1Path") as NpcPath).StartNode;
+		return;
 	}
 	
 	protected override Vector2 GetNormalizedMovementDirection()
 	{
-		if(NextPathNode == null) {
-			NextPathNode = (GetTree().GetFirstNodeInGroup("Squad1Path") as NpcPath).StartNode;
-		}
 		if((NextPathNode.GlobalPosition - GlobalPosition).Length() < 5) {
 			NextPathNode = NextPathNode.NextNode;
 		}
-		
+		GD.Print((NextPathNode.GlobalPosition - GlobalPosition).Normalized());
 		return (NextPathNode.GlobalPosition - GlobalPosition).Normalized();
 	}
 
