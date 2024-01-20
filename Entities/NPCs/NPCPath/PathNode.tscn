@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1e1mu4r6wrvv"]
+
+[ext_resource type="Script" path="res://Entities/NPCs/NPCPath/PathNode.cs" id="1_rwp3x"]
+
+[node name="PathNode" type="Marker2D"]
+script = ExtResource("1_rwp3x")

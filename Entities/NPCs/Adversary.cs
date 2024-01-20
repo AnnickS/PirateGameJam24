@@ -3,18 +3,23 @@ using System;
 
 public partial class Adversary : EntityBase
 {
+	private PathNode NextPathNode;
+
 	protected override void Initialize()
 	{
-		GD.Print("ERROR, INITIALZIZE NOT SET YET FOR ADVERSARY");
-	}
-
-	public override void _PhysicsProcess(double delta)
-	{
+		NextPathNode = (GetTree().GetFirstNodeInGroup("Squad1Path") as NpcPath).StartNode;
 	}
 	
 	protected override Vector2 GetNormalizedMovementDirection()
 	{
-		return Vector2.Zero;
+		if(NextPathNode == null) {
+			NextPathNode = (GetTree().GetFirstNodeInGroup("Squad1Path") as NpcPath).StartNode;
+		}
+		if((NextPathNode.GlobalPosition - GlobalPosition).Length() < 5) {
+			NextPathNode = NextPathNode.NextNode;
+		}
+		
+		return (NextPathNode.GlobalPosition - GlobalPosition).Normalized();
 	}
 
 	public override void ApplyEffect(Effect effect)

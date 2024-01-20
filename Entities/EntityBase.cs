@@ -40,7 +40,6 @@ public abstract partial class EntityBase : CharacterBody2D
 	[Export]
 	public int Shield;
 
-
 	protected AnimatedSprite2D AnimatedSprite;
 	protected AnimationState CurrentState;
 	protected bool left;
