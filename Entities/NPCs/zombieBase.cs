@@ -6,11 +6,8 @@ public partial class ZombieBase : EntityBase
 {
 	[Export]
 	private float Threshhold;
-	private Vector2 RalleyPoint = Vector2.Zero;
+	private Vector2 RallyPoint = Vector2.Zero;
 	private bool IsForceMove = false;
-	private float duration = 0f;
-	private bool slowX = false;
-	private bool slowY = false;
 	
 	private Timer attackAnimationTimer;
 	private Timer attackCooldownTimer;
@@ -28,6 +25,7 @@ public partial class ZombieBase : EntityBase
 	protected override void Initialize()
 	{
 		_InitializeWeapon();
+		deceleration = 15;
 	}
 
 	public override void _Input(InputEvent @event)
@@ -35,7 +33,7 @@ public partial class ZombieBase : EntityBase
 		
 		if(@event.IsActionPressed("secondary_button"))
 		{
-			RalleyPoint = GetGlobalMousePosition();
+			RallyPoint = GetGlobalMousePosition();
 			IsForceMove = Input.IsActionPressed("force_move");
 		}
 	}
@@ -45,42 +43,25 @@ public partial class ZombieBase : EntityBase
 			return;
 		}
 		
-		_Attack((Adversary)body);
+		Attack((Adversary)body);
 	}
-	
-	protected override void Move(double delta)
+
+	protected override Vector2 GetNormalizedMovementDirection()
 	{
-		if(CurrentState.Equals(AnimationState.Attacking)) {
-			return;
-		}
-		
-		if(_HasValidTarget() && !IsForceMove){
-			return;
+		Vector2 vectorToRallyPoint = RallyPoint-GlobalPosition;
+
+		if(ShouldNotMove(vectorToRallyPoint.Length())){
+			return Vector2.Zero;
 		}
 
-		Vector2 direction = (RalleyPoint-GlobalPosition).Normalized();
-		float length = (RalleyPoint-GlobalPosition).Length();
-		Vector2 velocity = Velocity;
+		return vectorToRallyPoint.Normalized();
+	}
 
-		duration = length < Threshhold ? duration + (float)delta : 0f;
-
-		velocity.X = length < Threshhold ? Mathf.MoveToward(Velocity.X, 0, duration/0.01f) : direction.X * BaseStats[Stat.Speed];
-		velocity.Y = length < Threshhold ? Mathf.MoveToward(Velocity.Y, 0, duration/0.01f) : direction.Y * BaseStats[Stat.Speed];
-		left = direction.X < 0;
-
-		Velocity = velocity;
-		MoveAndSlide();
-
-		if(Velocity.Equals(Vector2.Zero))
-		{
-			CurrentState = AnimationState.Idle;
-			duration = 0.0f;
-			slowX = false;
-			slowY = false;
-		} else
-		{
-			CurrentState = AnimationState.Moving;
-		}
+	private bool ShouldNotMove(float distanceToRallyPoint ) {
+		return 
+			CurrentState.Equals(AnimationState.Attacking)
+		|| (HasValidTarget() && !IsForceMove) 
+		|| distanceToRallyPoint <= Threshhold;
 	}
 	
 	private void _InitializeWeapon() {
@@ -98,7 +79,7 @@ public partial class ZombieBase : EntityBase
 		attackCooldownTimer.Timeout += _EndAttack;
 	}
 	
-	private void _Attack(Adversary body) {
+	private void Attack(Adversary body) {
 		target = body;
 		body.Damage(weaponDamage);
 		weaponSprite.Visible = true;
@@ -112,12 +93,12 @@ public partial class ZombieBase : EntityBase
 
 	private void _EndAttack() {
 		IsWeaponOnCooldown = false;
-		if(_HasValidTarget()) {
-			_Attack(target);
+		if(HasValidTarget()) {
+			Attack(target);
 		}
 	}
 	
-	private bool _HasValidTarget() {
+	private bool HasValidTarget() {
 		return IsInstanceValid(target) && weaponRange.OverlapsBody(target);
 	}
 

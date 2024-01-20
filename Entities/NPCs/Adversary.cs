@@ -12,9 +12,9 @@ public partial class Adversary : EntityBase
 	{
 	}
 	
-	protected override void Move(double delta)
+	protected override Vector2 GetNormalizedMovementDirection()
 	{
-		throw new NotImplementedException();
+		return Vector2.Zero;
 	}
 
 	public override void Damage(int damage)

@@ -46,7 +46,13 @@ public abstract partial class EntityBase : CharacterBody2D
 	protected bool left;
 
 	protected abstract void Initialize();
-	protected abstract void Move(double delta);
+	protected abstract Vector2 GetNormalizedMovementDirection();
+	protected virtual int GetMovementSpeed() {
+		return BaseStats[Stat.Speed];
+	}
+
+	protected int deceleration = 300;
+
 	public abstract void Damage(int damage);
 
 	//Apply Effect could be implemented here since every creature will
@@ -63,8 +69,41 @@ public abstract partial class EntityBase : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		// Get the input direction and handle the movement/deceleration.
-		Move(delta);
+		Move();
 		UpdateAnimation();
+	}
+
+	protected void Move() {
+		Vector2 direction = GetNormalizedMovementDirection();
+		Vector2 velocity = Velocity;
+		
+		if (direction != Vector2.Zero)
+		{
+			velocity = direction * GetMovementSpeed();
+			CurrentState = AnimationState.Moving;
+		}
+		else
+		{
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, deceleration);
+			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, deceleration);
+		}
+		
+		SetAnimationState(velocity, direction);
+
+		Velocity = velocity;
+		MoveAndSlide();
+	}
+
+	private void SetAnimationState(Vector2 velocity, Vector2 direction) {
+		CurrentState = velocity == Vector2.Zero ? AnimationState.Idle : AnimationState.Moving;
+
+		//not using velocity so if character is knocked back, they still face the same way
+		if(direction.X > 0.1) {
+			left = false;
+		}
+		else if(direction.X < -0.1) {
+			left = true;
+		}
 	}
 
 	protected void UpdateAnimation()
