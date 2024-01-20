@@ -26,4 +26,4 @@ position = Vector2(312, 160)
 Threshhold = 50.0
 
 [node name="SquadWithPath" parent="." instance=ExtResource("3_bvanb")]
-position = Vector2(-400, 88)
+position = Vector2(-512, 256)

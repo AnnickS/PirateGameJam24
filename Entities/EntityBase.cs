@@ -64,7 +64,9 @@ public abstract partial class EntityBase : CharacterBody2D
 	//Apply Effect could be implemented here since every creature will
 	//have the same stats to effect
 	public abstract void ApplyEffect(Effect effect);
-	protected abstract void Die();
+	protected virtual void Die() {
+		QueueFree();
+	}
 
 	public override void _Ready()
 	{
