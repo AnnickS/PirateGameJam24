@@ -12,6 +12,7 @@ public partial class Adversary : EntityBase
 		GD.Print($"STUPID DUMB {target}");
 		BaseStats[Stat.Speed] = 350;
 		InitializeVision();
+		InitializeAttack();
 	}
 	
 	protected override Vector2 GetNormalizedMovementDirection()
@@ -37,6 +38,11 @@ public partial class Adversary : EntityBase
 
 	private void InitializeVision() {
 		Area2D visionRange = GetNode<Area2D>("VisionRange");
+		//visionRange.BodyEntered += OnBodyEnteringWeaponRange; TODO ADD WEAPON HANDLINGe
+	}
+
+	private void InitializeAttack() {
+		Area2D visionRange = GetNode<Area2D>("AttackRange");
 		visionRange.BodyEntered += OnBodyEnteringVisionRange;
 	}
 
