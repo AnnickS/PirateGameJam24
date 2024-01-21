@@ -9,13 +9,8 @@ public partial class ZombieBase : EntityBase
 	private Vector2 RallyPoint = Vector2.Zero;
 	private bool IsForceMove = false;
 	
-	private Timer attackAnimationTimer;
-	private Timer attackCooldownTimer;
-	private bool IsWeaponOnCooldown = false;
-	private int weaponDamage = 10;
 	private Adversary target;
 	private Area2D weaponRange;
-	AnimatedSprite2D weaponSprite;
 
 	public void SetThreshhold(float amount)
 	{
