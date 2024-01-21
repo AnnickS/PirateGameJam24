@@ -40,7 +40,6 @@ public abstract partial class EntityBase : CharacterBody2D
 	[Export]
 	public int Shield;
 
-
 	protected AnimatedSprite2D AnimatedSprite;
 	protected AnimationState CurrentState;
 	protected bool left;
@@ -53,12 +52,21 @@ public abstract partial class EntityBase : CharacterBody2D
 
 	protected int deceleration = 300;
 
-	public abstract void Damage(int damage);
+	public virtual void Damage(int damage)
+	{
+		BaseStats[Stat.CurrentHealth] -= damage;
+		
+		if(BaseStats[Stat.CurrentHealth] <= 0) {
+			Die();
+		}
+	}
 
 	//Apply Effect could be implemented here since every creature will
 	//have the same stats to effect
 	public abstract void ApplyEffect(Effect effect);
-	protected abstract void Die();
+	protected virtual void Die() {
+		QueueFree();
+	}
 
 	public override void _Ready()
 	{
@@ -88,6 +96,7 @@ public abstract partial class EntityBase : CharacterBody2D
 			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, deceleration);
 		}
 		
+		//for future reference, this should probably be moved since it's not really a part of "moving"
 		SetAnimationState(velocity, direction);
 
 		Velocity = velocity;

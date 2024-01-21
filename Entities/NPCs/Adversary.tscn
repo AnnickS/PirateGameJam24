@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://k0opnubkx8m7"]
+[gd_scene load_steps=8 format=3 uid="uid://k0opnubkx8m7"]
 
 [ext_resource type="Texture2D" uid="uid://rrhkg5xo5rfu" path="res://Assets/Sprites/sprite-02a_people.png" id="1_8a6o5"]
 [ext_resource type="Script" path="res://Entities/NPCs/Adversary.cs" id="1_n6pmd"]
@@ -30,6 +30,12 @@ animations = [{
 "speed": 4.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_no0yu"]
+radius = 320.1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cfdvt"]
+radius = 64.4981
+
 [node name="Adversary" type="CharacterBody2D" groups=["Enemy"]]
 script = ExtResource("1_n6pmd")
 
@@ -41,3 +47,13 @@ position = Vector2(0, 8)
 scale = Vector2(0.701, 0.65)
 sprite_frames = SubResource("SpriteFrames_qw24l")
 animation = &"Idle"
+
+[node name="VisionRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionRange"]
+shape = SubResource("CircleShape2D_no0yu")
+
+[node name="AttackRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource("CircleShape2D_cfdvt")
