@@ -52,6 +52,7 @@ position = Vector2(3, 6)
 shape = SubResource("CapsuleShape2D_jcngn")
 
 [node name="Weapon" parent="." instance=ExtResource("4_j6gke")]
+weaponCooldown = 1.0
 weaponSpeed = 500.0
 
 [node name="WeaponRange" type="Area2D" parent="Weapon"]

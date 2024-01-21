@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 public partial class Weapon : Node2D
@@ -33,6 +34,8 @@ public partial class Weapon : Node2D
 	private Path2D Path;
 	private PathFollow2D PathProgress;
 
+	private List<Node2D> HitNodes;
+
 	Sprite2D weaponSprite;
 	private float WeaponRangeLength;
 
@@ -62,6 +65,8 @@ public partial class Weapon : Node2D
 		weaponHitbox.Reparent(PathProgress);
 
 		SetAttackType();
+
+		weaponHitbox.BodyEntered += OnAttackHittingSomething;
 
 		weaponSprite.Visible = false;
 	}
@@ -107,11 +112,22 @@ public partial class Weapon : Node2D
 		GD.Print($"GETTING CALLED {target}");
 		Target = target;
 		weaponSprite.Visible = true;
+		HitNodes = [];
 		IsAttacking = true;
 		IsWeaponOnCooldown = true;
 
 		AttackMethod();
 		attackCooldownTimer.Start();
+	}
+
+	private void OnAttackHittingSomething(Node2D body) {
+		if(!IsAttacking || !(body is EntityBase) || HitNodes.Contains(body)) {
+			return;
+		}
+
+		
+		HitNodes.Add(body);
+		(body as EntityBase).Damage(weaponDamage);
 	}
 
 	private void AttackCoolDownOver() {
@@ -121,6 +137,6 @@ public partial class Weapon : Node2D
 	private void AttackFinish() {
 		IsAttacking = false;
 		PathProgress.Progress = 0;
-		//weaponSprite.Visible = false;
+		weaponSprite.Visible = false;
 	}
 }

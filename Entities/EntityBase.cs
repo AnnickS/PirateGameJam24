@@ -54,6 +54,7 @@ public abstract partial class EntityBase : CharacterBody2D
 
 	public virtual void Damage(int damage)
 	{
+		GD.Print("TAKING DAMAGE");
 		BaseStats[Stat.CurrentHealth] -= damage;
 		
 		if(BaseStats[Stat.CurrentHealth] <= 0) {
