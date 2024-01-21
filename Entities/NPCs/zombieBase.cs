@@ -40,6 +40,7 @@ public partial class ZombieBase : EntityBase
 			return;
 		}
 		
+		target = body as Adversary;
 		Attack((Adversary)body);
 	}
 
@@ -75,7 +76,7 @@ public partial class ZombieBase : EntityBase
 
 	private void _EndAttack() {
 		GD.Print("IN THE ENDATATCK THING");
-		GD.Print($"HASVALIDTARG {IsInstanceValid(target)}, overlaps{weapon.weaponRange.OverlapsBody(target)}");
+		GD.Print($"HASVALIDTARG {IsInstanceValid(target)}");
 		if(HasValidTarget()) {
 			Attack(target);
 		}

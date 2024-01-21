@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cikyg62pvkpej"]
+
+[ext_resource type="Texture2D" uid="uid://b4f2u7d080s33" path="res://icon.svg" id="1_v5vms"]
+
+[node name="Debugscene" type="Sprite2D"]
+position = Vector2(-3.8147e-06, -3.8147e-06)
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("1_v5vms")
