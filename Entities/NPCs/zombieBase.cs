@@ -36,7 +36,7 @@ public partial class ZombieBase : EntityBase
 	}
 
 	private void _OnBodyEnteringWeaponRange(Node2D body) {
-		if(!body.IsInGroup("Enemy") || weapon.IsWeaponOnCooldown) {
+		if(!(body is EntityBase) || !body.IsInGroup("Enemy") || weapon.IsWeaponOnCooldown) {
 			return;
 		}
 		
@@ -64,6 +64,7 @@ public partial class ZombieBase : EntityBase
 	private void _InitializeWeapon() {
 		weapon = GetNode<Weapon>("Weapon");
 		weapon.weaponRange.BodyEntered += _OnBodyEnteringWeaponRange;
+		weapon.attackCooldownTimer.Timeout += _EndAttack;
 	}
 
 	
@@ -73,6 +74,8 @@ public partial class ZombieBase : EntityBase
 	}
 
 	private void _EndAttack() {
+		GD.Print("IN THE ENDATATCK THING");
+		GD.Print($"HASVALIDTARG {IsInstanceValid(target)}, overlaps{weapon.weaponRange.OverlapsBody(target)}");
 		if(HasValidTarget()) {
 			Attack(target);
 		}

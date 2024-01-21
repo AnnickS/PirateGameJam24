@@ -9,8 +9,11 @@
 script = ExtResource("1_ok6qr")
 
 [node name="AttackAnimationTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="AttackCooldownTimer" type="Timer" parent="."]
+wait_time = 2.026
+one_shot = true
 
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource("Curve2D_tmxwq")

@@ -20,7 +20,8 @@ public partial class Adversary : EntityBase
 	protected override Vector2 GetNormalizedMovementDirection()
 	{
 		if(IsInstanceValid(target)) {
-			return (target.GlobalPosition - GlobalPosition).Normalized();
+			Vector2 vectorToTarget = target.GlobalPosition - GlobalPosition;
+			return vectorToTarget.Length() < 5 ? Vector2.Zero : vectorToTarget.Normalized();
 		}
 
 		if((NextPathNode.GlobalPosition - GlobalPosition).Length() < 5) {

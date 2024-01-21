@@ -59,6 +59,8 @@ public partial class Weapon : Node2D
 		WeaponRangeLength = (GetNode<CollisionShape2D>("WeaponRange/CollisionShape2D").Shape as CircleShape2D).Radius;
 		GD.Print($"Initialize weapon range length${WeaponRangeLength}");
 
+		weaponHitbox.Reparent(PathProgress);
+
 		SetAttackType();
 
 		weaponSprite.Visible = false;
@@ -71,10 +73,10 @@ public partial class Weapon : Node2D
 			return;
 		}
 
-		GD.Print($"PROGRESS {PathProgress.Progress}, DELTA {(float)delta * weaponSpeed}");
+		//GD.Print($"PROGRESS {PathProgress.Progress}, DELTA {(float)delta * weaponSpeed}");
 		PathProgress.Progress += (float)delta * weaponSpeed;
 
-		if(PathProgress.ProgressRatio >= 1.0f) {
+		if(PathProgress.ProgressRatio >= .99f) {
 			AttackFinish();
 		}
 	}
@@ -92,7 +94,7 @@ public partial class Weapon : Node2D
 	private void Stab() {
 		Vector2 directionToTarget = (Target.GlobalPosition - GlobalPosition).Normalized();
 		Path.Curve.ClearPoints();
-		Path.Curve.AddPoint(GlobalPosition);
+		Path.Curve.AddPoint(Vector2.Zero);
 		Path.Curve.AddPoint(directionToTarget * WeaponRangeLength);
 	}
 
@@ -107,7 +109,6 @@ public partial class Weapon : Node2D
 		weaponSprite.Visible = true;
 		IsAttacking = true;
 		IsWeaponOnCooldown = true;
-		PathProgress.Progress = 0;
 
 		AttackMethod();
 		attackCooldownTimer.Start();
@@ -118,7 +119,8 @@ public partial class Weapon : Node2D
 	}
 
 	private void AttackFinish() {
-		weaponSprite.Visible = false;
 		IsAttacking = false;
+		PathProgress.Progress = 0;
+		//weaponSprite.Visible = false;
 	}
 }
