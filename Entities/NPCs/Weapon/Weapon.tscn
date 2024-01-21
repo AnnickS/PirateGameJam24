@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://db7n8kgqn4mm4"]
+
+[ext_resource type="Script" path="res://Entities/NPCs/Weapon/Weapon.cs" id="1_ok6qr"]
+[ext_resource type="Texture2D" uid="uid://cd65cm7rgc2ax" path="res://Assets/Sprites/PLACEHOLDER WEEAPON DO NOT USE.png" id="2_0sjnp"]
+
+[sub_resource type="Curve2D" id="Curve2D_tmxwq"]
+
+[node name="Weapon" type="Node2D"]
+script = ExtResource("1_ok6qr")
+
+[node name="AttackAnimationTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AttackCooldownTimer" type="Timer" parent="."]
+wait_time = 2.026
+one_shot = true
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_tmxwq")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+loop = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Path2D/PathFollow2D"]
+position = Vector2(24, -24)
+scale = Vector2(0.128415, 0.11165)
+texture = ExtResource("2_0sjnp")

@@ -17,17 +17,7 @@ public partial class Player : EntityBase
 		return direction;
 	}
 
-	public override void Damage(int damage)
-	{
-		throw new NotImplementedException();
-	}
-
 	public override void ApplyEffect(Effect effect)
-	{
-		throw new NotImplementedException();
-	}
-
-	protected override void Die()
 	{
 		throw new NotImplementedException();
 	}

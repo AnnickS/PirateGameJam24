@@ -9,13 +9,8 @@ public partial class ZombieBase : EntityBase
 	private Vector2 RallyPoint = Vector2.Zero;
 	private bool IsForceMove = false;
 	
-	private Timer attackAnimationTimer;
-	private Timer attackCooldownTimer;
-	private bool IsWeaponOnCooldown = false;
-	private int weaponDamage = 10;
 	private Adversary target;
-	private Area2D weaponRange;
-	AnimatedSprite2D weaponSprite;
+	private Weapon weapon;
 
 	public void SetThreshhold(float amount)
 	{
@@ -39,10 +34,11 @@ public partial class ZombieBase : EntityBase
 	}
 
 	private void _OnBodyEnteringWeaponRange(Node2D body) {
-		if(!body.IsInGroup("Enemy") || IsWeaponOnCooldown) {
+		if(!(body is EntityBase) || !body.IsInGroup("Enemy") || weapon.IsWeaponOnCooldown) {
 			return;
 		}
 		
+		target = body as Adversary;
 		Attack((Adversary)body);
 	}
 
@@ -59,47 +55,31 @@ public partial class ZombieBase : EntityBase
 
 	private bool ShouldNotMove(float distanceToRallyPoint ) {
 		return 
-			CurrentState.Equals(AnimationState.Attacking)
+			weapon.IsWeaponOnCooldown
 		|| (HasValidTarget() && !IsForceMove) 
 		|| distanceToRallyPoint <= Threshhold;
 	}
 	
 	private void _InitializeWeapon() {
-		weaponSprite = GetNode<AnimatedSprite2D>("Weapon");
-		weaponSprite.Visible = false;
-		
-		weaponRange = GetNode<Area2D>("WeaponRange");
-		weaponRange.BodyEntered += _OnBodyEnteringWeaponRange;
- 
-		attackAnimationTimer = GetNode<Timer>("AttackAnimationTimer");
-		attackCooldownTimer = GetNode<Timer>("AttackCooldownTimer");
-		attackAnimationTimer.Timeout += () => {
-			weaponSprite.Visible = false;
-		};
-		attackCooldownTimer.Timeout += _EndAttack;
+		weapon = GetNode<Weapon>("Weapon");
+		weapon.weaponRange.BodyEntered += _OnBodyEnteringWeaponRange;
+		weapon.attackCooldownTimer.Timeout += _EndAttack;
 	}
+
 	
 	private void Attack(Adversary body) {
-		target = body;
-		body.Damage(weaponDamage);
-		weaponSprite.Visible = true;
 		CurrentState = AnimationState.Idle;
-		
-		IsWeaponOnCooldown = true;
-
-		attackCooldownTimer.Start();
-		attackAnimationTimer.Start();
+		weapon.Attack(body);
 	}
 
 	private void _EndAttack() {
-		IsWeaponOnCooldown = false;
 		if(HasValidTarget()) {
 			Attack(target);
 		}
 	}
 	
 	private bool HasValidTarget() {
-		return IsInstanceValid(target) && weaponRange.OverlapsBody(target);
+		return IsInstanceValid(target) && weapon.weaponRange.OverlapsBody(target);
 	}
 
 	public override void ApplyEffect(Effect effect)
