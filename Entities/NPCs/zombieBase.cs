@@ -10,7 +10,7 @@ public partial class ZombieBase : EntityBase
 	private bool IsForceMove = false;
 	
 	private Adversary target;
-	private Area2D weaponRange;
+	private Weapon weapon;
 
 	public void SetThreshhold(float amount)
 	{
@@ -21,6 +21,8 @@ public partial class ZombieBase : EntityBase
 	{
 		_InitializeWeapon();
 		deceleration = 15;
+
+		GD.Print($"Initialize zombie ${weapon}");
 	}
 
 	public override void _Input(InputEvent @event)
@@ -34,7 +36,7 @@ public partial class ZombieBase : EntityBase
 	}
 
 	private void _OnBodyEnteringWeaponRange(Node2D body) {
-		if(!body.IsInGroup("Enemy") || IsWeaponOnCooldown) {
+		if(!body.IsInGroup("Enemy") || weapon.IsWeaponOnCooldown) {
 			return;
 		}
 		
@@ -54,47 +56,30 @@ public partial class ZombieBase : EntityBase
 
 	private bool ShouldNotMove(float distanceToRallyPoint ) {
 		return 
-			CurrentState.Equals(AnimationState.Attacking)
+			weapon.IsWeaponOnCooldown
 		|| (HasValidTarget() && !IsForceMove) 
 		|| distanceToRallyPoint <= Threshhold;
 	}
 	
 	private void _InitializeWeapon() {
-		weaponSprite = GetNode<AnimatedSprite2D>("Weapon");
-		weaponSprite.Visible = false;
-		
-		weaponRange = GetNode<Area2D>("WeaponRange");
-		weaponRange.BodyEntered += _OnBodyEnteringWeaponRange;
- 
-		attackAnimationTimer = GetNode<Timer>("AttackAnimationTimer");
-		attackCooldownTimer = GetNode<Timer>("AttackCooldownTimer");
-		attackAnimationTimer.Timeout += () => {
-			weaponSprite.Visible = false;
-		};
-		attackCooldownTimer.Timeout += _EndAttack;
+		weapon = GetNode<Weapon>("Weapon");
+		weapon.weaponRange.BodyEntered += _OnBodyEnteringWeaponRange;
 	}
+
 	
 	private void Attack(Adversary body) {
-		target = body;
-		body.Damage(weaponDamage);
-		weaponSprite.Visible = true;
 		CurrentState = AnimationState.Idle;
-		
-		IsWeaponOnCooldown = true;
-
-		attackCooldownTimer.Start();
-		attackAnimationTimer.Start();
+		weapon.Attack(body);
 	}
 
 	private void _EndAttack() {
-		IsWeaponOnCooldown = false;
 		if(HasValidTarget()) {
 			Attack(target);
 		}
 	}
 	
 	private bool HasValidTarget() {
-		return IsInstanceValid(target) && weaponRange.OverlapsBody(target);
+		return IsInstanceValid(target) && weapon.weaponRange.OverlapsBody(target);
 	}
 
 	public override void ApplyEffect(Effect effect)

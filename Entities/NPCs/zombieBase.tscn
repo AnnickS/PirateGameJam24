@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dqcatls0nnu6e"]
+[gd_scene load_steps=10 format=3 uid="uid://dqcatls0nnu6e"]
 
 [ext_resource type="Script" path="res://Entities/NPCs/ZombieBase.cs" id="1_101yj"]
 [ext_resource type="Texture2D" uid="uid://sqa5yi85jk0" path="res://Assets/Sprites/sprite-03a_zombie.png" id="2_qmms7"]
 [ext_resource type="Texture2D" uid="uid://du1mslyjruoc6" path="res://Assets/Sprites/sprite-03b_zombie.png" id="3_k4fwy"]
 [ext_resource type="Texture2D" uid="uid://clbrpplpovmlp" path="res://Assets/Sprites/DO_NOT_USE_IN_FINAL_GAME_PLACEHOLDER_WEAPON.png" id="4_2hpxg"]
+[ext_resource type="PackedScene" uid="uid://db7n8kgqn4mm4" path="res://Entities/NPCs/Weapon/Weapon.tscn" id="4_j6gke"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vemq8"]
 animations = [{
@@ -31,19 +32,12 @@ animations = [{
 radius = 15.0
 height = 48.0
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_rr5wt"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_2hpxg")
-}],
-"loop": true,
-"name": &"default",
-"speed": 1.0
-}]
+[sub_resource type="CircleShape2D" id="CircleShape2D_dnfhp"]
+radius = 72.4431
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_5ps4i"]
-radius = 64.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_585o1"]
+radius = 6.15519
+height = 67.592
 
 [node name="Zombie" type="CharacterBody2D"]
 script = ExtResource("1_101yj")
@@ -57,19 +51,21 @@ animation = &"Moving"
 position = Vector2(3, 6)
 shape = SubResource("CapsuleShape2D_jcngn")
 
-[node name="Weapon" type="AnimatedSprite2D" parent="."]
-position = Vector2(32, -24)
-scale = Vector2(0.04, 0.0525)
-sprite_frames = SubResource("SpriteFrames_rr5wt")
+[node name="Weapon" parent="." instance=ExtResource("4_j6gke")]
 
-[node name="WeaponRange" type="Area2D" parent="."]
+[node name="WeaponRange" type="Area2D" parent="Weapon"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponRange"]
-shape = SubResource("CircleShape2D_5ps4i")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon/WeaponRange"]
+shape = SubResource("CircleShape2D_dnfhp")
 
-[node name="AttackAnimationTimer" type="Timer" parent="."]
-one_shot = true
+[node name="WeaponHitbox" type="Area2D" parent="Weapon"]
 
-[node name="AttackCooldownTimer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
+[node name="WeaponSprite" type="Sprite2D" parent="Weapon/WeaponHitbox"]
+position = Vector2(64, -24)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("4_2hpxg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon/WeaponHitbox"]
+position = Vector2(64, -24)
+rotation = 0.692896
+shape = SubResource("CapsuleShape2D_585o1")

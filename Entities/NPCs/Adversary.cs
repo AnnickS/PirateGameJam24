@@ -19,7 +19,6 @@ public partial class Adversary : EntityBase
 	
 	protected override Vector2 GetNormalizedMovementDirection()
 	{
-		GD.Print($"is isntance {IsInstanceValid(target)}, target {target}");
 		if(IsInstanceValid(target)) {
 			return (target.GlobalPosition - GlobalPosition).Normalized();
 		}

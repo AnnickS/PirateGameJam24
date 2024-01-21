@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://k0opnubkx8m7"]
+[gd_scene load_steps=8 format=3 uid="uid://k0opnubkx8m7"]
 
 [ext_resource type="Texture2D" uid="uid://rrhkg5xo5rfu" path="res://Assets/Sprites/sprite-02a_people.png" id="1_8a6o5"]
 [ext_resource type="Script" path="res://Entities/NPCs/Adversary.cs" id="1_n6pmd"]
 [ext_resource type="Texture2D" uid="uid://dlsdkuwvtp5cd" path="res://Assets/Sprites/sprite-02b_people.png" id="2_f372n"]
-[ext_resource type="PackedScene" uid="uid://db7n8kgqn4mm4" path="res://Entities/NPCs/Weapon/Weapon.tscn" id="4_u3gte"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rn66t"]
 radius = 8.0
@@ -58,5 +57,3 @@ shape = SubResource("CircleShape2D_no0yu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
 shape = SubResource("CircleShape2D_cfdvt")
-
-[node name="Weapon" parent="." instance=ExtResource("4_u3gte")]
