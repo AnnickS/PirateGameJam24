@@ -11,7 +11,6 @@ public partial class Adversary : EntityBase
 
 	protected override void Initialize()
 	{
-		GD.Print($"STUPID DUMB {target}");
 		BaseStats[Stat.Speed] = 350;
 		InitializeVision();
 		InitializeAttack();
@@ -49,7 +48,6 @@ public partial class Adversary : EntityBase
 	}
 
 	private void OnBodyEnteringVisionRange(Node2D body) {
-		GD.Print($"{body}, {body is EntityBase}, {ShouldSwitchTargets(body as EntityBase)}");
 		if(body is EntityBase && ShouldSwitchTargets(body as EntityBase)) {
 			target = body as EntityBase;
 		}

@@ -42,26 +42,17 @@ public partial class Weapon : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		GD.Print($"Initialize weapon");
 		weaponSprite = GetNode<Sprite2D>("WeaponHitbox/WeaponSprite");
-		GD.Print($"Initialize weapon sprite ${weaponSprite}");
 		weaponHitbox = GetNode<Area2D>("WeaponHitbox");
-		GD.Print($"Initialize weapon hitbox ${weaponHitbox}");
 		weaponRange = GetNode<Area2D>("WeaponRange");
-		GD.Print($"Initialize weapon range ${weaponRange}");
 		PathProgress = GetNode<PathFollow2D>("Path2D/PathFollow2D");
-		GD.Print($"Initialize weapon pathProg${PathProgress}");
 		Path = GetNode<Path2D>("Path2D");
-		GD.Print($"Initialize weapon path${Path}");
 		
 		attackCooldownTimer = GetNode<Timer>("AttackCooldownTimer");
-		GD.Print($"Initialize weapon cooldown timer${attackCooldownTimer}");
 		attackCooldownTimer.WaitTime = weaponCooldown;
 		attackCooldownTimer.Timeout += AttackCoolDownOver;
 
 		WeaponRangeLength = (GetNode<CollisionShape2D>("WeaponRange/CollisionShape2D").Shape as CircleShape2D).Radius;
-		GD.Print($"Initialize weapon range length${WeaponRangeLength}");
-
 		weaponHitbox.Reparent(PathProgress);
 
 		SetAttackType();
@@ -78,7 +69,6 @@ public partial class Weapon : Node2D
 			return;
 		}
 
-		//GD.Print($"PROGRESS {PathProgress.Progress}, DELTA {(float)delta * weaponSpeed}");
 		PathProgress.Progress += (float)delta * weaponSpeed;
 
 		if(PathProgress.ProgressRatio >= .99f) {
@@ -88,7 +78,6 @@ public partial class Weapon : Node2D
 
 	private void SetAttackType() {
 		if(AttackType == AttackTypes.Stab) {
-			GD.Print("IT'S A STAB");
 			AttackMethod = Stab;
 		}
 		else {
@@ -108,8 +97,6 @@ public partial class Weapon : Node2D
 	}
 
 	public void Attack(EntityBase target) {
-
-		GD.Print($"GETTING CALLED {target}");
 		Target = target;
 		weaponSprite.Visible = true;
 		HitNodes = [];

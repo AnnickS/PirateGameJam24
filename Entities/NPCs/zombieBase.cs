@@ -21,8 +21,6 @@ public partial class ZombieBase : EntityBase
 	{
 		_InitializeWeapon();
 		deceleration = 15;
-
-		GD.Print($"Initialize zombie ${weapon}");
 	}
 
 	public override void _Input(InputEvent @event)
@@ -75,8 +73,6 @@ public partial class ZombieBase : EntityBase
 	}
 
 	private void _EndAttack() {
-		GD.Print("IN THE ENDATATCK THING");
-		GD.Print($"HASVALIDTARG {IsInstanceValid(target)}");
 		if(HasValidTarget()) {
 			Attack(target);
 		}
